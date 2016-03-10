@@ -1,0 +1,3461 @@
+Input Network
+
+
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> output]
+  (1): nn.SpatialZeroPadding(l=2,r=2,t=2,b=2)
+  (2): nn.SpatialConvolution
+  (3): nn.Threshold
+  (4): nn.SpatialMaxPooling
+  (5): nn.SpatialZeroPadding(l=2,r=2,t=2,b=2)
+  (6): nn.SpatialConvolution
+  (7): nn.Threshold
+  (8): nn.SpatialMaxPooling
+  (9): nn.Reshape(21632)
+}
+
+Available DSP Resouces to distribute between different layers 3600
+
+Maximum difference between any two layers execution cycle 100
+--------------------------------------------------------------
+
+Pyramid                8-4-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		
+Output Maps(M) 		    48 			   128 			
+Input Maps(N) 		     3 			    48 			
+Rows (R) 			     2 			     2 			
+Rows (C) 			     2 			     2 			
+Filter (K) 			    11 			     5 			
+Stride (S) 			     4 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 400
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  8712 			  8800 			
+
+ DSPs				    40 			   360 			
+
+ Unroll Factor TM	     2 			     6 			
+
+ Unroll Factor TN	     1 			     3 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 370
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  9680 			  9600 			
+
+ DSPs				    50 			   320 			
+
+ Unroll Factor TM	     5 			     1 			
+
+ Unroll Factor TN	     2 			    16 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 960
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3630 			  3600 			
+
+ DSPs				   100 			   860 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 4:
+
+
+Total DSP Units used 240
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				 15488 			 15400 			
+
+ DSPs				    30 			   210 			
+
+ Unroll Factor TM	     3 			     6 			
+
+ Unroll Factor TN	     2 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 5:
+
+
+Total DSP Units used 800
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4356 			  4300 			
+
+ DSPs				    80 			   720 			
+
+ Unroll Factor TM	     4 			     3 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 6:
+
+
+Total DSP Units used 720
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  5082 			  5000 			
+
+ DSPs				    70 			   650 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     1 			     5 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 7:
+
+
+Total DSP Units used 1880
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1815 			  1900 			
+
+ DSPs				   200 			  1680 			
+
+ Unroll Factor TM	    10 			     7 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 8:
+
+
+Total DSP Units used 1430
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2420 			  2400 			
+
+ DSPs				   150 			  1280 			
+
+ Unroll Factor TM	     5 			     4 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 9:
+
+
+Total DSP Units used 715
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4840 			  4800 			
+
+ DSPs				    75 			   640 			
+
+ Unroll Factor TM	     5 			     2 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 10:
+
+
+Total DSP Units used 890
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3872 			  3900 			
+
+ DSPs				    90 			   800 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 11:
+
+
+Total DSP Units used 2030
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1694 			  1750 			
+
+ DSPs				   210 			  1820 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 12:
+
+
+Total DSP Units used 3200
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1089 			  1075 			
+
+ DSPs				   320 			  2880 			
+
+ Unroll Factor TM	    16 			     3 			
+
+ Unroll Factor TN	     1 			    48 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 13:
+
+
+Total DSP Units used 1160
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2904 			  3000 			
+
+ DSPs				   120 			  1040 			
+
+ Unroll Factor TM	     2 			    13 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 14:
+
+
+Total DSP Units used 3370
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   968 			  1050 			
+
+ DSPs				   360 			  3010 			
+
+ Unroll Factor TM	     6 			    43 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 15:
+
+
+Total DSP Units used 480
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  7260 			  7200 			
+
+ DSPs				    50 			   430 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 16:
+
+
+Total DSP Units used 1560
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2178 			  2275 			
+
+ DSPs				   160 			  1400 			
+
+ Unroll Factor TM	     8 			    10 			
+
+ Unroll Factor TN	     1 			     7 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 17:
+
+
+Total DSP Units used 2320
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1452 			  1500 			
+
+ DSPs				   240 			  2080 			
+
+ Unroll Factor TM	     4 			    13 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 18:
+
+
+Total DSP Units used 445
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  7744 			  7800 			
+
+ DSPs				    45 			   400 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 19:
+
+
+Total DSP Units used 2700
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1210 			  1300 			
+
+ DSPs				   300 			  2400 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 20:
+
+
+Total DSP Units used 1340
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2541 			  2600 			
+
+ DSPs				   140 			  1200 			
+
+ Unroll Factor TM	     7 			     5 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 21:
+
+
+Total DSP Units used 1065
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3388 			  3300 			
+
+ DSPs				   105 			   960 			
+
+ Unroll Factor TM	     7 			     6 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 22:
+
+
+Total DSP Units used 1740
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1936 			  2000 			
+
+ DSPs				   180 			  1560 			
+
+ Unroll Factor TM	     3 			    13 			
+
+ Unroll Factor TN	     3 			     6 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 14:
+
+
+Total DSP Units used 3370
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles 			   968 			  1050 			
+
+ DSPs				   360 			  3010 			
+
+ Unroll Factor TM	     6 			    43 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     2 			
+--------------------------------------------------------------
+
+Pyramid              8-6-4-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		
+Output Maps(M) 		    48 			   128 			
+Input Maps(N) 		     3 			    48 			
+Rows (R) 			     2 			     1 			
+Rows (C) 			     2 			     1 			
+Filter (K) 			    11 			     5 			
+Stride (S) 			     4 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 130
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  8712 			  8800 			
+
+ DSPs				    40 			    90 			
+
+ Unroll Factor TM	     2 			     6 			
+
+ Unroll Factor TN	     1 			     3 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 2:
+
+
+Total DSP Units used 130
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  9680 			  9600 			
+
+ DSPs				    50 			    80 			
+
+ Unroll Factor TM	     5 			     1 			
+
+ Unroll Factor TN	     2 			    16 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 3:
+
+
+Total DSP Units used 315
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3630 			  3600 			
+
+ DSPs				   100 			   215 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 4:
+
+
+Total DSP Units used 2160
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   484 			   550 			
+
+ DSPs				   720 			  1440 			
+
+ Unroll Factor TM	    12 			     6 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 5:
+
+
+Total DSP Units used 260
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4356 			  4300 			
+
+ DSPs				    80 			   180 			
+
+ Unroll Factor TM	     4 			     3 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 6:
+
+
+Total DSP Units used 620
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1815 			  1900 			
+
+ DSPs				   200 			   420 			
+
+ Unroll Factor TM	    10 			     7 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 7:
+
+
+Total DSP Units used 2680
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   363 			   450 			
+
+ DSPs				   960 			  1720 			
+
+ Unroll Factor TM	    16 			    43 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 8:
+
+
+Total DSP Units used 470
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2420 			  2400 			
+
+ DSPs				   150 			   320 			
+
+ Unroll Factor TM	     5 			     4 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 9:
+
+
+Total DSP Units used 235
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4840 			  4800 			
+
+ DSPs				    75 			   160 			
+
+ Unroll Factor TM	     5 			     2 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 10:
+
+
+Total DSP Units used 290
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3872 			  3900 			
+
+ DSPs				    90 			   200 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 11:
+
+
+Total DSP Units used 665
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1694 			  1750 			
+
+ DSPs				   210 			   455 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 12:
+
+
+Total DSP Units used 1720
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   605 			   700 			
+
+ DSPs				   600 			  1120 			
+
+ Unroll Factor TM	    10 			    32 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 13:
+
+
+Total DSP Units used 1040
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1089 			  1075 			
+
+ DSPs				   320 			   720 			
+
+ Unroll Factor TM	    16 			     3 			
+
+ Unroll Factor TN	     1 			    48 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 14:
+
+
+Total DSP Units used 380
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2904 			  3000 			
+
+ DSPs				   120 			   260 			
+
+ Unroll Factor TM	     2 			    13 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 15:
+
+
+Total DSP Units used 1440
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   726 			   800 			
+
+ DSPs				   480 			   960 			
+
+ Unroll Factor TM	     8 			     4 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 16:
+
+
+Total DSP Units used 1120
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   968 			  1050 			
+
+ DSPs				   360 			   760 			
+
+ Unroll Factor TM	     6 			    19 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 17:
+
+
+Total DSP Units used 160
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  7260 			  7200 			
+
+ DSPs				    50 			   110 			
+
+ Unroll Factor TM	     5 			    11 			
+
+ Unroll Factor TN	     1 			     2 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 18:
+
+
+Total DSP Units used 510
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2178 			  2275 			
+
+ DSPs				   160 			   350 			
+
+ Unroll Factor TM	     8 			    10 			
+
+ Unroll Factor TN	     1 			     7 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 19:
+
+
+Total DSP Units used 760
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1452 			  1500 			
+
+ DSPs				   240 			   520 			
+
+ Unroll Factor TM	     4 			    13 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 20:
+
+
+Total DSP Units used 1280
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   847 			   900 			
+
+ DSPs				   420 			   860 			
+
+ Unroll Factor TM	     7 			    43 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 21:
+
+
+Total DSP Units used 145
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  7744 			  7800 			
+
+ DSPs				    45 			   100 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 22:
+
+
+Total DSP Units used 900
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1210 			  1300 			
+
+ DSPs				   300 			   600 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 23:
+
+
+Total DSP Units used 440
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2541 			  2600 			
+
+ DSPs				   140 			   300 			
+
+ Unroll Factor TM	     7 			     5 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 24:
+
+
+Total DSP Units used 345
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3388 			  3300 			
+
+ DSPs				   105 			   240 			
+
+ Unroll Factor TM	     7 			     6 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 25:
+
+
+Total DSP Units used 570
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1936 			  2000 			
+
+ DSPs				   180 			   390 			
+
+ Unroll Factor TM	     3 			    13 			
+
+ Unroll Factor TN	     3 			     6 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 7:
+
+
+Total DSP Units used 2680
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles 			   363 			   450 			
+
+ DSPs				   960 			  1720 			
+
+ Unroll Factor TM	    16 			    43 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+--------------------------------------------------------------
+
+Pyramid                8-2-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		
+Output Maps(M) 		    48 			   128 			
+Input Maps(N) 		     3 			    48 			
+Rows (R) 			     1 			     2 			
+Rows (C) 			     1 			     2 			
+Filter (K) 			    11 			     5 			
+Stride (S) 			     4 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 370
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  8712 			  8800 			
+
+ DSPs				    10 			   360 			
+
+ Unroll Factor TM	     2 			     6 			
+
+ Unroll Factor TN	     1 			     3 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 830
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3872 			  3900 			
+
+ DSPs				    30 			   800 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     2 			     8 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 885
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3630 			  3600 			
+
+ DSPs				    25 			   860 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 4:
+
+
+Total DSP Units used 1235
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2541 			  2600 			
+
+ DSPs				    35 			  1200 			
+
+ Unroll Factor TM	     7 			     5 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 5:
+
+
+Total DSP Units used 740
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4356 			  4300 			
+
+ DSPs				    20 			   720 			
+
+ Unroll Factor TM	     4 			     3 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 6:
+
+
+Total DSP Units used 1890
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1694 			  1750 			
+
+ DSPs				    70 			  1820 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     2 			     7 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 7:
+
+
+Total DSP Units used 1730
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1815 			  1900 			
+
+ DSPs				    50 			  1680 			
+
+ Unroll Factor TM	    10 			     7 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 8:
+
+
+Total DSP Units used 1330
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2420 			  2400 			
+
+ DSPs				    50 			  1280 			
+
+ Unroll Factor TM	     5 			     4 			
+
+ Unroll Factor TN	     2 			    16 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 9:
+
+
+Total DSP Units used 2475
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1210 			  1300 			
+
+ DSPs				    75 			  2400 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 10:
+
+
+Total DSP Units used 2960
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1089 			  1075 			
+
+ DSPs				    80 			  2880 			
+
+ Unroll Factor TM	    16 			     3 			
+
+ Unroll Factor TN	     1 			    48 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 11:
+
+
+Total DSP Units used 1440
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2178 			  2275 			
+
+ DSPs				    40 			  1400 			
+
+ Unroll Factor TM	     8 			    10 			
+
+ Unroll Factor TN	     1 			     7 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 12:
+
+
+Total DSP Units used 2140
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1452 			  1500 			
+
+ DSPs				    60 			  2080 			
+
+ Unroll Factor TM	     4 			    13 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 13:
+
+
+Total DSP Units used 3545
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   847 			   900 			
+
+ DSPs				   105 			  3440 			
+
+ Unroll Factor TM	     7 			    43 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 14:
+
+
+Total DSP Units used 1605
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1936 			  2000 			
+
+ DSPs				    45 			  1560 			
+
+ Unroll Factor TM	     3 			    13 			
+
+ Unroll Factor TN	     3 			     6 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 15:
+
+
+Total DSP Units used 1070
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2904 			  3000 			
+
+ DSPs				    30 			  1040 			
+
+ Unroll Factor TM	     2 			    13 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 16:
+
+
+Total DSP Units used 3100
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   968 			  1050 			
+
+ DSPs				    90 			  3010 			
+
+ Unroll Factor TM	     6 			    43 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 13:
+
+
+Total DSP Units used 3545
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles 			   847 			   900 			
+
+ DSPs				   105 			  3440 			
+
+ Unroll Factor TM	     7 			    43 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid              8-4-2-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		
+Output Maps(M) 		    48 			   128 			
+Input Maps(N) 		     3 			    48 			
+Rows (R) 			     1 			     2 			
+Rows (C) 			     1 			     2 			
+Filter (K) 			    11 			     5 			
+Stride (S) 			     4 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 370
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  8712 			  8800 			
+
+ DSPs				    10 			   360 			
+
+ Unroll Factor TM	     2 			     6 			
+
+ Unroll Factor TN	     1 			     3 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 830
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3872 			  3900 			
+
+ DSPs				    30 			   800 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     2 			     8 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 885
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3630 			  3600 			
+
+ DSPs				    25 			   860 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 4:
+
+
+Total DSP Units used 1235
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2541 			  2600 			
+
+ DSPs				    35 			  1200 			
+
+ Unroll Factor TM	     7 			     5 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 5:
+
+
+Total DSP Units used 740
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4356 			  4300 			
+
+ DSPs				    20 			   720 			
+
+ Unroll Factor TM	     4 			     3 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 6:
+
+
+Total DSP Units used 1890
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1694 			  1750 			
+
+ DSPs				    70 			  1820 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     2 			     7 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 7:
+
+
+Total DSP Units used 1730
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1815 			  1900 			
+
+ DSPs				    50 			  1680 			
+
+ Unroll Factor TM	    10 			     7 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 8:
+
+
+Total DSP Units used 1330
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2420 			  2400 			
+
+ DSPs				    50 			  1280 			
+
+ Unroll Factor TM	     5 			     4 			
+
+ Unroll Factor TN	     2 			    16 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 9:
+
+
+Total DSP Units used 2475
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1210 			  1300 			
+
+ DSPs				    75 			  2400 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 10:
+
+
+Total DSP Units used 2960
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1089 			  1075 			
+
+ DSPs				    80 			  2880 			
+
+ Unroll Factor TM	    16 			     3 			
+
+ Unroll Factor TN	     1 			    48 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 11:
+
+
+Total DSP Units used 1440
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2178 			  2275 			
+
+ DSPs				    40 			  1400 			
+
+ Unroll Factor TM	     8 			    10 			
+
+ Unroll Factor TN	     1 			     7 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 12:
+
+
+Total DSP Units used 2140
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1452 			  1500 			
+
+ DSPs				    60 			  2080 			
+
+ Unroll Factor TM	     4 			    13 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 13:
+
+
+Total DSP Units used 3545
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   847 			   900 			
+
+ DSPs				   105 			  3440 			
+
+ Unroll Factor TM	     7 			    43 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 14:
+
+
+Total DSP Units used 1605
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1936 			  2000 			
+
+ DSPs				    45 			  1560 			
+
+ Unroll Factor TM	     3 			    13 			
+
+ Unroll Factor TN	     3 			     6 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 15:
+
+
+Total DSP Units used 1070
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2904 			  3000 			
+
+ DSPs				    30 			  1040 			
+
+ Unroll Factor TM	     2 			    13 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Solution 16:
+
+
+Total DSP Units used 3100
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   968 			  1050 			
+
+ DSPs				    90 			  3010 			
+
+ Unroll Factor TM	     6 			    43 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 13:
+
+
+Total DSP Units used 3545
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles 			   847 			   900 			
+
+ DSPs				   105 			  3440 			
+
+ Unroll Factor TM	     7 			    43 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid              8-6-2-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		
+Output Maps(M) 		    48 			   128 			
+Input Maps(N) 		     3 			    48 			
+Rows (R) 			     1 			     1 			
+Rows (C) 			     1 			     1 			
+Filter (K) 			    11 			     5 			
+Stride (S) 			     4 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 100
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  8712 			  8800 			
+
+ DSPs				    10 			    90 			
+
+ Unroll Factor TM	     2 			     6 			
+
+ Unroll Factor TN	     1 			     3 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 2:
+
+
+Total DSP Units used 230
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3872 			  3900 			
+
+ DSPs				    30 			   200 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     2 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 3:
+
+
+Total DSP Units used 240
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3630 			  3600 			
+
+ DSPs				    25 			   215 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 4:
+
+
+Total DSP Units used 1620
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   484 			   550 			
+
+ DSPs				   180 			  1440 			
+
+ Unroll Factor TM	    12 			     6 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 5:
+
+
+Total DSP Units used 335
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2541 			  2600 			
+
+ DSPs				    35 			   300 			
+
+ Unroll Factor TM	     7 			     5 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 6:
+
+
+Total DSP Units used 200
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4356 			  4300 			
+
+ DSPs				    20 			   180 			
+
+ Unroll Factor TM	     4 			     3 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 7:
+
+
+Total DSP Units used 525
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1694 			  1750 			
+
+ DSPs				    70 			   455 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     2 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 8:
+
+
+Total DSP Units used 470
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1815 			  1900 			
+
+ DSPs				    50 			   420 			
+
+ Unroll Factor TM	    10 			     7 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 9:
+
+
+Total DSP Units used 1270
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   605 			   700 			
+
+ DSPs				   150 			  1120 			
+
+ Unroll Factor TM	    10 			    32 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 10:
+
+
+Total DSP Units used 2760
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   242 			   325 			
+
+ DSPs				   360 			  2400 			
+
+ Unroll Factor TM	    24 			    10 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 11:
+
+
+Total DSP Units used 370
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2420 			  2400 			
+
+ DSPs				    50 			   320 			
+
+ Unroll Factor TM	     5 			     4 			
+
+ Unroll Factor TN	     2 			    16 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 12:
+
+
+Total DSP Units used 675
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1210 			  1300 			
+
+ DSPs				    75 			   600 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 13:
+
+
+Total DSP Units used 1960
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   363 			   450 			
+
+ DSPs				   240 			  1720 			
+
+ Unroll Factor TM	    16 			    43 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 14:
+
+
+Total DSP Units used 800
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1089 			  1075 			
+
+ DSPs				    80 			   720 			
+
+ Unroll Factor TM	    16 			     3 			
+
+ Unroll Factor TN	     1 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 15:
+
+
+Total DSP Units used 390
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2178 			  2275 			
+
+ DSPs				    40 			   350 			
+
+ Unroll Factor TM	     8 			    10 			
+
+ Unroll Factor TN	     1 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 16:
+
+
+Total DSP Units used 580
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1452 			  1500 			
+
+ DSPs				    60 			   520 			
+
+ Unroll Factor TM	     4 			    13 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 17:
+
+
+Total DSP Units used 965
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   847 			   900 			
+
+ DSPs				   105 			   860 			
+
+ Unroll Factor TM	     7 			    43 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 18:
+
+
+Total DSP Units used 1080
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   726 			   800 			
+
+ DSPs				   120 			   960 			
+
+ Unroll Factor TM	     8 			     4 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 19:
+
+
+Total DSP Units used 435
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1936 			  2000 			
+
+ DSPs				    45 			   390 			
+
+ Unroll Factor TM	     3 			    13 			
+
+ Unroll Factor TN	     3 			     6 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 20:
+
+
+Total DSP Units used 290
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2904 			  3000 			
+
+ DSPs				    30 			   260 			
+
+ Unroll Factor TM	     2 			    13 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 21:
+
+
+Total DSP Units used 850
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   968 			  1050 			
+
+ DSPs				    90 			   760 			
+
+ Unroll Factor TM	     6 			    19 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 10:
+
+
+Total DSP Units used 2760
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles 			   242 			   325 			
+
+ DSPs				   360 			  2400 			
+
+ Unroll Factor TM	    24 			    10 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+--------------------------------------------------------------
+
+Pyramid            8-6-4-2-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		
+Output Maps(M) 		    48 			   128 			
+Input Maps(N) 		     3 			    48 			
+Rows (R) 			     1 			     1 			
+Rows (C) 			     1 			     1 			
+Filter (K) 			    11 			     5 			
+Stride (S) 			     4 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 100
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  8712 			  8800 			
+
+ DSPs				    10 			    90 			
+
+ Unroll Factor TM	     2 			     6 			
+
+ Unroll Factor TN	     1 			     3 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 2:
+
+
+Total DSP Units used 230
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3872 			  3900 			
+
+ DSPs				    30 			   200 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     2 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 3:
+
+
+Total DSP Units used 240
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3630 			  3600 			
+
+ DSPs				    25 			   215 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 4:
+
+
+Total DSP Units used 1620
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   484 			   550 			
+
+ DSPs				   180 			  1440 			
+
+ Unroll Factor TM	    12 			     6 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 5:
+
+
+Total DSP Units used 335
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2541 			  2600 			
+
+ DSPs				    35 			   300 			
+
+ Unroll Factor TM	     7 			     5 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 6:
+
+
+Total DSP Units used 200
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4356 			  4300 			
+
+ DSPs				    20 			   180 			
+
+ Unroll Factor TM	     4 			     3 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 7:
+
+
+Total DSP Units used 525
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1694 			  1750 			
+
+ DSPs				    70 			   455 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     2 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 8:
+
+
+Total DSP Units used 470
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1815 			  1900 			
+
+ DSPs				    50 			   420 			
+
+ Unroll Factor TM	    10 			     7 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 9:
+
+
+Total DSP Units used 1270
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   605 			   700 			
+
+ DSPs				   150 			  1120 			
+
+ Unroll Factor TM	    10 			    32 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 10:
+
+
+Total DSP Units used 2760
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   242 			   325 			
+
+ DSPs				   360 			  2400 			
+
+ Unroll Factor TM	    24 			    10 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 11:
+
+
+Total DSP Units used 370
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2420 			  2400 			
+
+ DSPs				    50 			   320 			
+
+ Unroll Factor TM	     5 			     4 			
+
+ Unroll Factor TN	     2 			    16 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 12:
+
+
+Total DSP Units used 675
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1210 			  1300 			
+
+ DSPs				    75 			   600 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 13:
+
+
+Total DSP Units used 1960
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   363 			   450 			
+
+ DSPs				   240 			  1720 			
+
+ Unroll Factor TM	    16 			    43 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 14:
+
+
+Total DSP Units used 800
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1089 			  1075 			
+
+ DSPs				    80 			   720 			
+
+ Unroll Factor TM	    16 			     3 			
+
+ Unroll Factor TN	     1 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 15:
+
+
+Total DSP Units used 390
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2178 			  2275 			
+
+ DSPs				    40 			   350 			
+
+ Unroll Factor TM	     8 			    10 			
+
+ Unroll Factor TN	     1 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 16:
+
+
+Total DSP Units used 580
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1452 			  1500 			
+
+ DSPs				    60 			   520 			
+
+ Unroll Factor TM	     4 			    13 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 17:
+
+
+Total DSP Units used 965
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   847 			   900 			
+
+ DSPs				   105 			   860 			
+
+ Unroll Factor TM	     7 			    43 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 18:
+
+
+Total DSP Units used 1080
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   726 			   800 			
+
+ DSPs				   120 			   960 			
+
+ Unroll Factor TM	     8 			     4 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 19:
+
+
+Total DSP Units used 435
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1936 			  2000 			
+
+ DSPs				    45 			   390 			
+
+ Unroll Factor TM	     3 			    13 			
+
+ Unroll Factor TN	     3 			     6 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 20:
+
+
+Total DSP Units used 290
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2904 			  3000 			
+
+ DSPs				    30 			   260 			
+
+ Unroll Factor TM	     2 			    13 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 21:
+
+
+Total DSP Units used 850
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   968 			  1050 			
+
+ DSPs				    90 			   760 			
+
+ Unroll Factor TM	     6 			    19 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 10:
+
+
+Total DSP Units used 2760
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles 			   242 			   325 			
+
+ DSPs				   360 			  2400 			
+
+ Unroll Factor TM	    24 			    10 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+--------------------------------------------------------------
+
+Pyramid                  8-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		
+Output Maps(M) 		    48 			   128 			
+Input Maps(N) 		     3 			    48 			
+Rows (R) 			     4 			     2 			
+Rows (C) 			     4 			     2 			
+Filter (K) 			    11 			     5 			
+Stride (S) 			     4 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 520
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  8712 			  8800 			
+
+ DSPs				   160 			   360 			
+
+ Unroll Factor TM	     2 			     6 			
+
+ Unroll Factor TN	     1 			     3 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 470
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  9680 			  9600 			
+
+ DSPs				   150 			   320 			
+
+ Unroll Factor TM	     5 			     1 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     2 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 1260
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3630 			  3600 			
+
+ DSPs				   400 			   860 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 4:
+
+
+Total DSP Units used 300
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				 15488 			 15400 			
+
+ DSPs				    90 			   210 			
+
+ Unroll Factor TM	     3 			     6 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 5:
+
+
+Total DSP Units used 1040
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4356 			  4300 			
+
+ DSPs				   320 			   720 			
+
+ Unroll Factor TM	     4 			     3 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 6:
+
+
+Total DSP Units used 930
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  5082 			  5000 			
+
+ DSPs				   280 			   650 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     1 			     5 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 7:
+
+
+Total DSP Units used 580
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  7744 			  7800 			
+
+ DSPs				   180 			   400 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 8:
+
+
+Total DSP Units used 1880
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2420 			  2400 			
+
+ DSPs				   600 			  1280 			
+
+ Unroll Factor TM	     5 			     4 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 9:
+
+
+Total DSP Units used 940
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4840 			  4800 			
+
+ DSPs				   300 			   640 			
+
+ Unroll Factor TM	     5 			     2 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 10:
+
+
+Total DSP Units used 1160
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3872 			  3900 			
+
+ DSPs				   360 			   800 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 11:
+
+
+Total DSP Units used 2480
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1815 			  1900 			
+
+ DSPs				   800 			  1680 			
+
+ Unroll Factor TM	    10 			     7 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 12:
+
+
+Total DSP Units used 2040
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2178 			  2275 			
+
+ DSPs				   640 			  1400 			
+
+ Unroll Factor TM	     8 			    10 			
+
+ Unroll Factor TN	     1 			     7 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 13:
+
+
+Total DSP Units used 2280
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1936 			  2000 			
+
+ DSPs				   720 			  1560 			
+
+ Unroll Factor TM	     3 			    13 			
+
+ Unroll Factor TN	     3 			     6 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 14:
+
+
+Total DSP Units used 2660
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1694 			  1750 			
+
+ DSPs				   840 			  1820 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     2 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 15:
+
+
+Total DSP Units used 1380
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3388 			  3300 			
+
+ DSPs				   420 			   960 			
+
+ Unroll Factor TM	     7 			     6 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 16:
+
+
+Total DSP Units used 3600
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1210 			  1300 			
+
+ DSPs				  1200 			  2400 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 17:
+
+
+Total DSP Units used 1760
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2541 			  2600 			
+
+ DSPs				   560 			  1200 			
+
+ Unroll Factor TM	     7 			     5 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 18:
+
+
+Total DSP Units used 630
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  7260 			  7200 			
+
+ DSPs				   200 			   430 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 19:
+
+
+Total DSP Units used 3040
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1452 			  1500 			
+
+ DSPs				   960 			  2080 			
+
+ Unroll Factor TM	     4 			    13 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Solution 20:
+
+
+Total DSP Units used 1520
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2904 			  3000 			
+
+ DSPs				   480 			  1040 			
+
+ Unroll Factor TM	     2 			    13 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 16:
+
+
+Total DSP Units used 3600
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles 			  1210 			  1300 			
+
+ DSPs				  1200 			  2400 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     4 			     2 			
+
+ Unroll Factor TC	     4 			     2 			
+--------------------------------------------------------------
+
+Pyramid                8-6-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		
+Output Maps(M) 		    48 			   128 			
+Input Maps(N) 		     3 			    48 			
+Rows (R) 			     2 			     1 			
+Rows (C) 			     2 			     1 			
+Filter (K) 			    11 			     5 			
+Stride (S) 			     4 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 130
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  8712 			  8800 			
+
+ DSPs				    40 			    90 			
+
+ Unroll Factor TM	     2 			     6 			
+
+ Unroll Factor TN	     1 			     3 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 2:
+
+
+Total DSP Units used 130
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  9680 			  9600 			
+
+ DSPs				    50 			    80 			
+
+ Unroll Factor TM	     5 			     1 			
+
+ Unroll Factor TN	     2 			    16 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 3:
+
+
+Total DSP Units used 315
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3630 			  3600 			
+
+ DSPs				   100 			   215 			
+
+ Unroll Factor TM	     5 			    43 			
+
+ Unroll Factor TN	     1 			     1 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 4:
+
+
+Total DSP Units used 2160
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   484 			   550 			
+
+ DSPs				   720 			  1440 			
+
+ Unroll Factor TM	    12 			     6 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 5:
+
+
+Total DSP Units used 260
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4356 			  4300 			
+
+ DSPs				    80 			   180 			
+
+ Unroll Factor TM	     4 			     3 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 6:
+
+
+Total DSP Units used 620
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1815 			  1900 			
+
+ DSPs				   200 			   420 			
+
+ Unroll Factor TM	    10 			     7 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 7:
+
+
+Total DSP Units used 2680
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   363 			   450 			
+
+ DSPs				   960 			  1720 			
+
+ Unroll Factor TM	    16 			    43 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 8:
+
+
+Total DSP Units used 470
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2420 			  2400 			
+
+ DSPs				   150 			   320 			
+
+ Unroll Factor TM	     5 			     4 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 9:
+
+
+Total DSP Units used 235
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  4840 			  4800 			
+
+ DSPs				    75 			   160 			
+
+ Unroll Factor TM	     5 			     2 			
+
+ Unroll Factor TN	     3 			    16 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 10:
+
+
+Total DSP Units used 290
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3872 			  3900 			
+
+ DSPs				    90 			   200 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 11:
+
+
+Total DSP Units used 665
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1694 			  1750 			
+
+ DSPs				   210 			   455 			
+
+ Unroll Factor TM	     7 			    13 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 12:
+
+
+Total DSP Units used 1720
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   605 			   700 			
+
+ DSPs				   600 			  1120 			
+
+ Unroll Factor TM	    10 			    32 			
+
+ Unroll Factor TN	     3 			     7 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 13:
+
+
+Total DSP Units used 1040
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1089 			  1075 			
+
+ DSPs				   320 			   720 			
+
+ Unroll Factor TM	    16 			     3 			
+
+ Unroll Factor TN	     1 			    48 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 14:
+
+
+Total DSP Units used 380
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2904 			  3000 			
+
+ DSPs				   120 			   260 			
+
+ Unroll Factor TM	     2 			    13 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 15:
+
+
+Total DSP Units used 1440
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   726 			   800 			
+
+ DSPs				   480 			   960 			
+
+ Unroll Factor TM	     8 			     4 			
+
+ Unroll Factor TN	     3 			    48 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 16:
+
+
+Total DSP Units used 1120
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   968 			  1050 			
+
+ DSPs				   360 			   760 			
+
+ Unroll Factor TM	     6 			    19 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 17:
+
+
+Total DSP Units used 160
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  7260 			  7200 			
+
+ DSPs				    50 			   110 			
+
+ Unroll Factor TM	     5 			    11 			
+
+ Unroll Factor TN	     1 			     2 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 18:
+
+
+Total DSP Units used 510
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2178 			  2275 			
+
+ DSPs				   160 			   350 			
+
+ Unroll Factor TM	     8 			    10 			
+
+ Unroll Factor TN	     1 			     7 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 19:
+
+
+Total DSP Units used 760
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1452 			  1500 			
+
+ DSPs				   240 			   520 			
+
+ Unroll Factor TM	     4 			    13 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 20:
+
+
+Total DSP Units used 1280
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				   847 			   900 			
+
+ DSPs				   420 			   860 			
+
+ Unroll Factor TM	     7 			    43 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 21:
+
+
+Total DSP Units used 145
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  7744 			  7800 			
+
+ DSPs				    45 			   100 			
+
+ Unroll Factor TM	     3 			     5 			
+
+ Unroll Factor TN	     3 			     4 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 22:
+
+
+Total DSP Units used 900
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1210 			  1300 			
+
+ DSPs				   300 			   600 			
+
+ Unroll Factor TM	     5 			     5 			
+
+ Unroll Factor TN	     3 			    24 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 23:
+
+
+Total DSP Units used 440
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  2541 			  2600 			
+
+ DSPs				   140 			   300 			
+
+ Unroll Factor TM	     7 			     5 			
+
+ Unroll Factor TN	     1 			    12 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Solution 24:
+
+
+Total DSP Units used 345
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  3388 			  3300 			
+
+ DSPs				   105 			   240 			
+
+ Unroll Factor TM	     7 			     6 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     1 			     1 			
+
+ Unroll Factor TC	     1 			     1 			
+
+Solution 25:
+
+
+Total DSP Units used 570
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles				  1936 			  2000 			
+
+ DSPs				   180 			   390 			
+
+ Unroll Factor TM	     3 			    13 			
+
+ Unroll Factor TN	     3 			     6 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 7:
+
+
+Total DSP Units used 2680
+
+ Resource			Layer 1 		Layer 2 		
+
+ Cycles 			   363 			   450 			
+
+ DSPs				   960 			  1720 			
+
+ Unroll Factor TM	    16 			    43 			
+
+ Unroll Factor TN	     3 			     8 			
+
+ Unroll Factor TR	     2 			     1 			
+
+ Unroll Factor TC	     2 			     1 			

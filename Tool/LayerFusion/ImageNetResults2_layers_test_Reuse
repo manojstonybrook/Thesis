@@ -1,0 +1,67 @@
+Input Network
+
+
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> output]
+  (1): nn.SpatialZeroPadding(l=2,r=2,t=2,b=2)
+  (2): nn.SpatialConvolution
+  (3): nn.Threshold
+  (4): nn.SpatialMaxPooling
+  (5): nn.SpatialZeroPadding(l=2,r=2,t=2,b=2)
+  (6): nn.SpatialConvolution
+  (7): nn.Threshold
+  (8): nn.SpatialMaxPooling
+  (9): nn.Reshape(21632)
+}
+
+Reuse Cost (Onchip buffer size to store intermediate results)
+
+											Cone			Reuse Cost
+                                       8-6-4-2-0		     20.25
+                                         8-6-4-0		     20.25
+                                         8-6-2-0		     20.25
+                                         8-4-2-0		     20.25
+                                           8-4-0		     20.25
+                                           8-2-0		     20.25
+                                           8-6-0		     38.62
+                                             8-0		     38.62
+
+
+
+Bandwidth Cost (Need to transfer this memory from onchip to offchip)
+
+											Cone			Bandwidth Cost
+                                             8-0		    672.50
+                                           8-4-0		    945.88
+                                           8-6-0		   1401.50
+                                         8-6-4-0		   1674.88
+                                           8-2-0		   1806.88
+                                         8-4-2-0		   2080.25
+                                         8-6-2-0		   2535.88
+                                       8-6-4-2-0		   2809.25
+
+
+
+Combined ReUse and Bandwidth cost
+
+											Cone			Reuse + Bandwidth Cost
+                                             8-0		    711.12
+                                           8-4-0		    966.12
+                                           8-6-0		   1440.12
+                                         8-6-4-0		   1695.12
+                                           8-2-0		   1827.12
+                                         8-4-2-0		   2100.50
+                                         8-6-2-0		   2556.12
+                                       8-6-4-2-0		   2829.50
+
+All Costs together
+
+											Cone			ReUse Cost			Bandwidth			Weight Cost
+                                           8-4-0			     20.25			    945.88			    600.00
+                                         8-6-4-0			     20.25			   1674.88			    600.00
+                                           8-2-0			     20.25			   1806.88			    600.00
+                                         8-4-2-0			     20.25			   2080.25			    600.00
+                                         8-6-2-0			     20.25			   2535.88			    600.00
+                                       8-6-4-2-0			     20.25			   2809.25			    600.00
+                                             8-0			     38.62			    672.50			    668.06
+                                           8-6-0			     38.62			   1401.50			    668.06

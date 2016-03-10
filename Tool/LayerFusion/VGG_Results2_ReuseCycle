@@ -1,0 +1,1196 @@
+Input Network
+
+
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> (10) -> (11) -> (12) -> (13) -> (14) -> (15) -> (16) -> (17) -> (18) -> (19) -> (20) -> (21) -> (22) -> (23) -> (24) -> (25) -> (26) -> (27) -> (28) -> output]
+  (1): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (2): nn.SpatialConvolution
+  (3): nn.Threshold
+  (4): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (5): nn.SpatialConvolution
+  (6): nn.Threshold
+  (7): nn.SpatialMaxPooling
+  (8): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (9): nn.SpatialConvolution
+  (10): nn.Threshold
+  (11): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (12): nn.SpatialConvolution
+  (13): nn.Threshold
+  (14): nn.SpatialMaxPooling
+  (15): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (16): nn.SpatialConvolution
+  (17): nn.Threshold
+  (18): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (19): nn.SpatialConvolution
+  (20): nn.Threshold
+  (21): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (22): nn.SpatialConvolution
+  (23): nn.Threshold
+  (24): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (25): nn.SpatialConvolution
+  (26): nn.Threshold
+  (27): nn.SpatialMaxPooling
+  (28): nn.Reshape(200704)
+}
+
+Available DSP Resouces to distribute between different layers 3600
+
+Maximum difference between any two layers execution cycle 100
+--------------------------------------------------------------
+
+Pyramid 27-22-19-16-14-9-7-2-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+Rows (C) 			     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+No Solution possible for this case
+
+--------------------------------------------------------------
+
+Pyramid 27-22-19-16-14-9-7-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     2 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+Rows (C) 			     2 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 3395
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			    55 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 1:
+
+
+Total DSP Units used 3395
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			    55 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid      27-22-19-14-7-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     2 			     2 			     2 			     2 			     1 			     1 			     1 			     2 			
+Rows (C) 			     2 			     2 			     2 			     2 			     1 			     1 			     1 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 3555
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			   215 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			    43 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 1:
+
+
+Total DSP Units used 3555
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			   215 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			    43 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid      27-22-19-14-9-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     2 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+Rows (C) 			     2 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 3395
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			    55 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 1:
+
+
+Total DSP Units used 3395
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			    55 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid         27-19-14-7-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     2 			     2 			     2 			     2 			     1 			     1 			     2 			     2 			
+Rows (C) 			     2 			     2 			     2 			     2 			     1 			     1 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+No Solution possible for this case
+
+--------------------------------------------------------------
+
+Pyramid         27-22-14-7-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     2 			     2 			     2 			     2 			     1 			     1 			     1 			     2 			
+Rows (C) 			     2 			     2 			     2 			     2 			     1 			     1 			     1 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 3555
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			   215 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			    43 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 1:
+
+
+Total DSP Units used 3555
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			   215 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			    43 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid           27-22-14-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     4 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+Rows (C) 			     4 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 1450
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			
+
+ DSPs				    10 			   160 			    80 			   160 			    80 			   160 			   160 			   640 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     2 			     2 			     4 			     8 			    16 			    32 			    32 			    32 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 2895
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			
+
+ DSPs				    15 			   320 			   160 			   320 			   160 			   320 			   320 			  1280 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     3 			     4 			     8 			    16 			    32 			    64 			    64 			    64 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 985
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			
+
+ DSPs				     5 			   110 			    55 			   110 			    55 			   110 			   110 			   430 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    11 			    11 			    22 			    22 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+
+Solution 4:
+
+
+Total DSP Units used 1955
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   215 			   215 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    22 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     1 			     1 			     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 2:
+
+
+Total DSP Units used 2895
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			
+
+ DSPs				    15 			   320 			   160 			   320 			   160 			   320 			   320 			  1280 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     3 			     4 			     8 			    16 			    32 			    64 			    64 			    64 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid           27-16-14-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     4 			     4 			     2 			     2 			     1 			     2 			     2 			     2 			
+Rows (C) 			     4 			     4 			     2 			     2 			     1 			     2 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 2410
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			
+
+ DSPs				    10 			   160 			    80 			   160 			    80 			   640 			   640 			   640 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     2 			     2 			     4 			     8 			    16 			    32 			    32 			    32 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     2 			     2 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 1625
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			
+
+ DSPs				     5 			   110 			    55 			   110 			    55 			   430 			   430 			   430 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    11 			    11 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     2 			     2 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 3245
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   860 			   860 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    22 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     1 			     2 			     2 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 3:
+
+
+Total DSP Units used 3245
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   860 			   860 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    22 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     1 			     2 			     2 			     2 			
+--------------------------------------------------------------
+
+Pyramid              27-16-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     4 			     4 			     2 			     2 			     1 			     2 			     2 			     2 			
+Rows (C) 			     4 			     4 			     2 			     2 			     1 			     2 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 2410
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			
+
+ DSPs				    10 			   160 			    80 			   160 			    80 			   640 			   640 			   640 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     2 			     2 			     4 			     8 			    16 			    32 			    32 			    32 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     2 			     2 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 1625
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			
+
+ DSPs				     5 			   110 			    55 			   110 			    55 			   430 			   430 			   430 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    11 			    11 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     2 			     2 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 3245
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   860 			   860 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    22 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     1 			     2 			     2 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 3:
+
+
+Total DSP Units used 3245
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   860 			   860 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    22 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     1 			     2 			     2 			     2 			
+--------------------------------------------------------------
+
+Pyramid              27-14-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     4 			     4 			     2 			     2 			     2 			     2 			     2 			     2 			
+Rows (C) 			     4 			     4 			     2 			     2 			     2 			     2 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 2650
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			
+
+ DSPs				    10 			   160 			    80 			   160 			   320 			   640 			   640 			   640 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     2 			     2 			     4 			     8 			    16 			    32 			    32 			    32 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     2 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     2 			     2 			     2 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 1785
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			
+
+ DSPs				     5 			   110 			    55 			   110 			   215 			   430 			   430 			   430 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    11 			    43 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     2 			     2 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 3565
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   430 			   860 			   860 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    43 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     2 			     2 			     2 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 3:
+
+
+Total DSP Units used 3565
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   430 			   860 			   860 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    43 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     2 			     2 			     2 			     2 			
+--------------------------------------------------------------
+
+Pyramid            27-22-7-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     2 			     2 			     2 			     2 			     1 			     1 			     1 			     2 			
+Rows (C) 			     2 			     2 			     2 			     2 			     1 			     1 			     1 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 3555
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			   215 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			    43 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 1:
+
+
+Total DSP Units used 3555
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			  6912 			
+
+ DSPs				     5 			   110 			   215 			   430 			   215 			   430 			   430 			  1720 			
+
+ Unroll Factor TM	     1 			     1 			    43 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    43 			    43 			    86 			    86 			    86 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid              27-19-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     4 			     4 			     2 			     2 			     1 			     1 			     2 			     2 			
+Rows (C) 			     4 			     4 			     2 			     2 			     1 			     1 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 1930
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			
+
+ DSPs				    10 			   160 			    80 			   160 			    80 			   160 			   640 			   640 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     2 			     2 			     4 			     8 			    16 			    32 			    32 			    32 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     1 			     2 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     1 			     2 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 1305
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			
+
+ DSPs				     5 			   110 			    55 			   110 			    55 			   110 			   430 			   430 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    11 			    11 			    22 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     2 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 2600
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   215 			   860 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    22 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     2 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     1 			     1 			     2 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 3:
+
+
+Total DSP Units used 2600
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   215 			   860 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    22 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     2 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     1 			     1 			     2 			     2 			
+--------------------------------------------------------------
+
+Pyramid               27-9-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     2 			     2 			     1 			     4 			     2 			     2 			     2 			     2 			
+Rows (C) 			     2 			     2 			     1 			     4 			     2 			     2 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+No Solution possible for this case
+
+--------------------------------------------------------------
+
+Pyramid               27-7-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     2 			     2 			     4 			     4 			     2 			     2 			     2 			     2 			
+Rows (C) 			     2 			     2 			     4 			     4 			     2 			     2 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+No Solution possible for this case
+
+--------------------------------------------------------------
+
+Pyramid              27-22-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     4 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+Rows (C) 			     4 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 1450
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			 18432 			
+
+ DSPs				    10 			   160 			    80 			   160 			    80 			   160 			   160 			   640 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     2 			     2 			     4 			     8 			    16 			    32 			    32 			    32 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+Solution 2:
+
+
+Total DSP Units used 2895
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			
+
+ DSPs				    15 			   320 			   160 			   320 			   160 			   320 			   320 			  1280 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     3 			     4 			     8 			    16 			    32 			    64 			    64 			    64 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 985
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			
+
+ DSPs				     5 			   110 			    55 			   110 			    55 			   110 			   110 			   430 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    11 			    11 			    22 			    22 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     1 			     1 			     2 			
+
+Solution 4:
+
+
+Total DSP Units used 1955
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			 13824 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   215 			   215 			   860 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    22 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     1 			     1 			     1 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 2:
+
+
+Total DSP Units used 2895
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			  9216 			
+
+ DSPs				    15 			   320 			   160 			   320 			   160 			   320 			   320 			  1280 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     3 			     4 			     8 			    16 			    32 			    64 			    64 			    64 			
+
+ Unroll Factor TR	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+
+ Unroll Factor TC	     1 			     4 			     2 			     2 			     1 			     1 			     1 			     2 			
+--------------------------------------------------------------
+
+Pyramid               27-2-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     1 			     8 			     4 			     4 			     2 			     2 			     2 			     2 			
+Rows (C) 			     1 			     8 			     4 			     4 			     2 			     2 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+No Solution possible for this case
+
+--------------------------------------------------------------
+
+Pyramid                 27-0 
+
+
+ Different Convolution layer properties for this pyramids 
+
+Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+Output Maps(M) 		    64 			    64 			   128 			   128 			   256 			   256 			   256 			   256 			
+Input Maps(N) 		     3 			    64 			    64 			   128 			   128 			   256 			   256 			   256 			
+Rows (R) 			     8 			     8 			     4 			     4 			     2 			     2 			     2 			     2 			
+Rows (C) 			     8 			     8 			     4 			     4 			     2 			     2 			     2 			     2 			
+Filter (K) 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			     3 			
+Stride (S) 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+Solution 1:
+
+
+Total DSP Units used 1310
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 55296 			 55296 			 55296 			 55296 			 55296 			 55296 			 55296 			 55296 			
+
+ DSPs				    10 			   220 			   110 			   215 			   110 			   215 			   215 			   215 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    43 			    11 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     2 			     4 			     2 			     1 			     2 			     1 			     1 			     1 			
+
+Solution 2:
+
+
+Total DSP Units used 1810
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 41472 			 41472 			 41472 			 41472 			 41472 			 41472 			 41472 			 41472 			
+
+ DSPs				    15 			   330 			   150 			   300 			   145 			   290 			   290 			   290 			
+
+ Unroll Factor TM	     1 			     1 			    15 			     1 			    29 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    15 			     1 			    29 			    29 			    29 			
+
+ Unroll Factor TR	     1 			     2 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     3 			     3 			     2 			     4 			     1 			     2 			     2 			     2 			
+
+Solution 3:
+
+
+Total DSP Units used 3290
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 22464 			 22464 			 22464 			 22464 			 22446 			 22446 			 22446 			 22446 			
+
+ DSPs				    25 			   550 			   275 			   550 			   270 			   540 			   540 			   540 			
+
+ Unroll Factor TM	     5 			     5 			     5 			     5 			     9 			     3 			     3 			     3 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    11 			     3 			     9 			     9 			     9 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     2 			     2 			     2 			     2 			
+
+Solution 4:
+
+
+Total DSP Units used 3565
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 20736 			 20736 			 20736 			 20736 			 20736 			 20736 			 20736 			 20736 			
+
+ DSPs				    30 			   605 			   300 			   600 			   290 			   580 			   580 			   580 			
+
+ Unroll Factor TM	     1 			    11 			    15 			     1 			    29 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    15 			     1 			    29 			    29 			    29 			
+
+ Unroll Factor TR	     2 			     1 			     1 			     2 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     3 			     1 			     4 			     4 			     2 			     2 			     2 			     2 			
+
+Solution 5:
+
+
+Total DSP Units used 2910
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 25344 			 25344 			 25344 			 25344 			 25344 			 25344 			 25344 			 25344 			
+
+ DSPs				    30 			   480 			   240 			   480 			   240 			   480 			   480 			   480 			
+
+ Unroll Factor TM	     3 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     2 			     3 			     3 			     6 			    12 			    24 			    24 			    24 			
+
+ Unroll Factor TR	     1 			     4 			     4 			     4 			     2 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     1 			     8 			     4 			     4 			     2 			     2 			     2 			     2 			
+
+Solution 6:
+
+
+Total DSP Units used 970
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 73728 			 73728 			 73728 			 73728 			 73728 			 73728 			 73728 			 73728 			
+
+ DSPs				    10 			   160 			    80 			   160 			    80 			   160 			   160 			   160 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     2 			     1 			     1 			     2 			     4 			     8 			     8 			     8 			
+
+ Unroll Factor TR	     1 			     4 			     4 			     4 			     2 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     1 			     8 			     4 			     4 			     2 			     2 			     2 			     2 			
+
+Solution 7:
+
+
+Total DSP Units used 2610
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			 27648 			
+
+ DSPs				    20 			   440 			   215 			   430 			   215 			   430 			   430 			   430 			
+
+ Unroll Factor TM	     1 			     1 			    43 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    43 			    43 			    43 			    43 			    43 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     4 			     8 			     1 			     2 			     1 			     2 			     2 			     2 			
+
+Solution 8:
+
+
+Total DSP Units used 665
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				110592 			110592 			110592 			110592 			110592 			110592 			110592 			110592 			
+
+ DSPs				     5 			   110 			    55 			   110 			    55 			   110 			   110 			   110 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			    11 			    11 			    11 			    11 			    11 			    11 			
+
+ Unroll Factor TR	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TC	     1 			     2 			     1 			     2 			     1 			     2 			     2 			     2 			
+
+Solution 9:
+
+
+Total DSP Units used 1935
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles				 36864 			 36864 			 36864 			 36864 			 36864 			 36864 			 36864 			 36864 			
+
+ DSPs				    15 			   320 			   160 			   320 			   160 			   320 			   320 			   320 			
+
+ Unroll Factor TM	     1 			     1 			     1 			     1 			     1 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     3 			     1 			     2 			     4 			     8 			    16 			    16 			    16 			
+
+ Unroll Factor TR	     1 			     8 			     4 			     4 			     2 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     1 			     8 			     4 			     4 			     2 			     2 			     2 			     2 			
+
+Recommended Solution with minimum cycles and Max DSP units:
+
+
+Solution 4:
+
+
+Total DSP Units used 3565
+
+ Resource			Layer 1 		Layer 2 		Layer 3 		Layer 4 		Layer 5 		Layer 6 		Layer 7 		Layer 8 		
+
+ Cycles 			 20736 			 20736 			 20736 			 20736 			 20736 			 20736 			 20736 			 20736 			
+
+ DSPs				    30 			   605 			   300 			   600 			   290 			   580 			   580 			   580 			
+
+ Unroll Factor TM	     1 			    11 			    15 			     1 			    29 			     1 			     1 			     1 			
+
+ Unroll Factor TN	     1 			    11 			     1 			    15 			     1 			    29 			    29 			    29 			
+
+ Unroll Factor TR	     2 			     1 			     1 			     2 			     1 			     2 			     2 			     2 			
+
+ Unroll Factor TC	     3 			     1 			     4 			     4 			     2 			     2 			     2 			     2 			

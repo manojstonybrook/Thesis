@@ -1259,8 +1259,7 @@ end
 --print(inputNet)
 
 
-init()
-
+init()   
 if(multicone_stats == 1) then
 	local map = cone_position(inputNet, count)
 	print(map)
@@ -1277,7 +1276,7 @@ if(multicone_stats == 1) then
 	outfileCycle:write(string.format("\nAvailable DSP Resouces to distribute between different layers %d\n", DSP_LIMIT))
 	outfileCycle:write(string.format("\nMaximum difference between any two layers execution cycle %d\n", Cycle_diff))
 		
-	--selection_sort(res, 'cost')
+	--[[--selection_sort(res, 'cost')
     insertion_sort(res, 'cost')
     processed_res = res
 
@@ -1311,14 +1310,15 @@ if(multicone_stats == 1) then
 	for i = 1, #processed_res do
 	 outfile:write(string.format("%48s\t\t%10.2f\n", processed_res[i]['cone'], processed_res[i]['total_cost']/1024))
 	end
-
+    ]]--
+    processed_res = res
     insertion_sort(processed_res, 'cost')
 
 	outfile:write(string.format("\nAll Costs together\n"))
-	outfile:write(string.format("\n\t\t\t\t\t\t\t\t\t\t\tCone\t\t\tReUse Cost\t\t\tBandwidth\t\t\tWeight Cost\n"))
+	outfile:write(string.format("\n\t\t\t\t\t\t\t\t\t\t\tCone\t\t\tReUse Cost\t\t\tIntermediate Storage Cost\t\t\tBandwidth\t\t\tWeight Cost\n"))
 	
 	for i = 1, #processed_res do
-	   outfile:write(string.format("%48s\t\t\t%10.2f\t\t\t%10.2f\t\t\t%10.2f\n", processed_res[i]['cone'], processed_res[i]['cost']/1024, (processed_res[i]['storage_cost'])/1024, processed_res[i]['weight_cost']/1024))
+	   outfile:write(string.format("%48s\t\t\t%10.2f\t\t\t%10.2f\t\t\t\t\t\t%10.2f\t\t\t%10.2f\n", processed_res[i]['cone'], processed_res[i]['cost']/1024, processed_res[i]['IScost']/1024, (processed_res[i]['storage_cost'])/1024, processed_res[i]['weight_cost']/1024))
 		  
 		local layerT = {}
 		local countT = 1    

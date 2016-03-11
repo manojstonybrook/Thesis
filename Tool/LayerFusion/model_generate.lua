@@ -114,7 +114,7 @@ else if(opt.model == 'ImageNet_Paper' or opt.model == 'INP') then
     model = nn.Sequential()
     pad = 2
     --conv1, relu, pool1
-    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    --model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
     model:add(nn.SpatialConvolution(channels,nstates[1],filtsize[1],filtsize[1],stride, stride))
     model:add(nn.Threshold(0,0))
     model:add(nn.SpatialMaxPooling(poolkernel,poolkernel,poolsize,poolsize))
@@ -141,7 +141,7 @@ else if(opt.model == 'ImageNet_Paper' or opt.model == 'INP') then
     model:add(nn.LogSoftMax())]]--
     model:type('torch.FloatTensor')
     
-    Im = torch.FloatTensor(3,224,224)
+    Im = torch.FloatTensor(3,227,227)
     out = model:forward(Im)
     --print(out)
     torch.save('model_INP.net', model, 'ascii')

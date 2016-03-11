@@ -50,6 +50,35 @@ function find_candidates(candidates, pos, k, map)
     --print(candidates)
 end
 
+
+function calcualte_Intermediate_storage(inputNet, pixel, bottom, top)
+  local i = top
+  local Istorage = 0
+  --print(top..'-'..bottom)
+  while(i <= bottom) do
+    if(i == 1) then
+        Istorage = Istorage + opt.channels *  (pixel[1]['br'][1] - pixel[1]['tl'][1] + 1) * (pixel[1]['br'][2] - pixel[1]['tl'][2] + 1) * 4
+        --print(opt.channels..'X'..(pixel[1]['br'][1] - pixel[1]['tl'][1] + 1)..'X'..(pixel[1]['br'][2] - pixel[1]['tl'][2] + 1))
+    else
+        if(inputNet.modules[i].__typename ~= 'nn.Threshold') then
+           Istorage = Istorage + inputNet.modules[i-1].output:size()[1] *  (pixel[i]['br'][1] - pixel[i]['tl'][1] + 1) * (pixel[i]['br'][2] - pixel[i]['tl'][2] + 1) * 4
+         end
+        --print(inputNet.modules[i-1].output:size()[1]..'X'..(pixel[i]['br'][1] - pixel[i]['tl'][1] + 1)..'X'..(pixel[i]['br'][2] - pixel[i]['tl'][2] + 1))
+    end
+    i = i + 1 
+  end
+
+  if(bottom ~= count) then
+    --print(inputNet.modules[bottom+1].output:size()[1]..'X'..(pixel[bottom+1]['br'][1] - pixel[bottom+1]['tl'][1] + 1)..'X'..(pixel[bottom+1]['br'][2] - pixel[bottom+1]['tl'][2] + 1))
+    Istorage = Istorage + inputNet.modules[bottom+1].output:size()[1] * (pixel[bottom+1]['br'][1] - pixel[bottom+1]['tl'][1] + 1) * (pixel[bottom+1]['br'][2] - pixel[bottom+1]['tl'][2] + 1) * 4
+  else
+    --print(inputNet.modules[bottom].output:size()[1]..'X'..(pixel[bottom+1]['br'][1] - pixel[bottom+1]['tl'][1] + 1)..'X'..(pixel[bottom+1]['br'][2] - pixel[bottom+1]['tl'][2] + 1))
+    Istorage = Istorage + inputNet.modules[bottom].output:size()[1] * (pixel[bottom+1]['br'][1] - pixel[bottom+1]['tl'][1] + 1) * (pixel[bottom+1]['br'][2] - pixel[bottom+1]['tl'][2] + 1) * 4
+  end 
+  --print("\n")
+  return Istorage
+end
+
 function calculate_storage(inputNet, pixel, pixel_up, count, top)
   local start = top
   local rows, cols, lrows, lcols, NRows, NCols, NewRows, NewCols
@@ -58,7 +87,6 @@ function calculate_storage(inputNet, pixel, pixel_up, count, top)
   	
   NewRows = pixel[start]['br'][1] - pixel_up[start]['br'][1]
   NewCols = pixel_up[start]['br'][2] - pixel_up[start]['br'][2] +1
-  
   local total_reuse_mem = 0; local_reuse_mem_left = 0; local_reuse_mem_up = 0;
   local weight_storage = 0
   if(pixel_up[start]['br'][2] > pixel[start]['tl'][2]) then
@@ -97,7 +125,7 @@ function calculate_storage(inputNet, pixel, pixel_up, count, top)
         local size = inputNet.modules[i].weight:size()
         weight_storage = weight_storage + size[1] * size[2] * size[3] * size[4] * 4
 
-	if(i == 1) then
+	    if(i == 1) then
    	  
           local_reuse_mem_left = local_reuse_mem_left + opt.channels*orows*ocols*4
 	      local_reuse_mem_up = local_reuse_mem_up + opt.channels * opt.W * crows * 4
@@ -107,13 +135,13 @@ function calculate_storage(inputNet, pixel, pixel_up, count, top)
      	  end	     
           total_reuse_mem = total_reuse_mem + local_reuse_mem_left + local_reuse_mem_up 
         	
-	else
+    	else
           -- i-1 layer is combined and used for convolution	  	  
 	  
-	   local_reuse_mem_left = local_reuse_mem_left + inputNet.modules[i-1].output:size()[1] * orows* ocols* 4
-       local_reuse_mem_up = local_reuse_mem_up + inputNet.modules[i-1].output:size()[1] * crows * inputNet.modules[i-1].output:size()[2]* 4
+	       local_reuse_mem_left = local_reuse_mem_left + inputNet.modules[i-1].output:size()[1] * orows* ocols* 4
+           local_reuse_mem_up = local_reuse_mem_up + inputNet.modules[i-1].output:size()[1] * crows * inputNet.modules[i-1].output:size()[2]* 4
 
-	  if(Debug_flag == 1) then
+       if(Debug_flag == 1) then
             print("Left", "channels", inputNet.modules[i-1].output:size()[1], "rows=", orows, "cols", ocols, local_reuse_mem_left)
      	    print("UP", "channels", inputNet.modules[i-1].output:size()[1], "rows=", crows, "cols", inputNet.modules[i-1].output:size()[2],local_reuse_mem_left)
           end
@@ -175,6 +203,7 @@ function calculate_layer(inputNet, pixel_up, pixel, count, top)
   local i = start
   while(i <= count) do
 
+--Assumption is that region to calculate is same
 	if(inputNet.modules[i].__typename == 'nn.SpatialConvolution') then
 	  NRows = pixel[i+1]['br'][1] - pixel_up[i+1]['br'][1]
 	  local size = inputNet.modules[i].weight:size()
@@ -214,8 +243,16 @@ function cost_calculate_step(model, bottom, top)
     pixel2 = calculate_roi(inputNet, bottom, pixel2, nil, top)
 
     local cost_left, cost_up, weight_storage = calculate_storage(inputNet, pixel1, pixel2, bottom, top)
-	local layers = calculate_layer(inputNet, pixel1, pixel2, bottom, top)    
-    return cost_left, cost_up, weight_storage, layers
+    local layers = calculate_layer(inputNet, pixel1, pixel2, bottom, top) 
+	
+    tab = {}
+    tab['tl'] = {0, 0}
+    tab['br'] = {0, 0}
+    pixel1 = {}
+    pixel1[bottom+1] = tab
+    pixel1 = calculate_roi(inputNet, bottom, pixel1, nil, top)
+	local Istorage = calcualte_Intermediate_storage(inputNet, pixel1, bottom, top)	   
+    return cost_left, cost_up, Istorage, weight_storage, layers
 end
 
 function cost_calculate(model, cases)
@@ -223,7 +260,8 @@ function cost_calculate(model, cases)
     local storage_cost = 0
     local weight_cost
     local step_cost_left, step_cost_up, step_cost, step_storage_cost
-    local step_cost_left_max = 0; step_cost_up_max = 0; weight_cost_max = 0;
+    local Istorage = 0
+    local step_cost_left_max = 0; step_cost_up_max = 0; weight_cost_max = 0; Istorage_max = 0;
     step_storage_cost = 0
 
     if(Debug_flag == 1) then
@@ -242,6 +280,7 @@ function cost_calculate(model, cases)
          step_cost_left_max = math.max(step_cost_left_max, dp_table[local_str]['step_cost_left'])
 	     step_cost_up_max = math.max(step_cost_up_max, dp_table[local_str]['step_cost_up'])
          weight_cost_max = math.max(weight_cost_max, dp_table[local_str]['weight_cost'])
+         Istorage_max = math.max(Istorage_max, dp_table[local_str]['IScost'])
          storage_cost = storage_cost + dp_table[local_str]['step_storage_cost']
 		 layerL = dp_table[local_str]['layer']  
       else
@@ -255,11 +294,12 @@ function cost_calculate(model, cases)
 			top = top + 1
 		  end
 
-		  step_cost_left, step_cost_up, weight_cost, layerL = cost_calculate_step(model, bottom, top)
+		  step_cost_left, step_cost_up, Istorage, weight_cost, layerL = cost_calculate_step(model, bottom, top)
 		  --print(layerL)
 	      step_cost_left_max = math.max(step_cost_left_max, step_cost_left)
 	      step_cost_up_max = math.max(step_cost_up_max, step_cost_up)
           weight_cost_max = math.max(weight_cost_max, weight_cost)
+          Istorage_max   =   math.max(Istorage_max, Istorage)
 	      if(Debug_flag == 1) then
 			print(bottom, test, top, step_cost_left, step_cost_up)
 	      end
@@ -268,6 +308,7 @@ function cost_calculate(model, cases)
           local tab = {}
           tab['step_cost_left'] = step_cost_left 
           tab['step_cost_up'] = step_cost_up
+          tab['IScost'] = Istorage
           tab['step_storage_cost'] = step_storage_cost
           tab['weight_cost'] = weight_cost
 		  tab['layer'] = layerL
@@ -289,7 +330,7 @@ function cost_calculate(model, cases)
     end
     
 	--print(layerG)   
-    return cost, storage_cost, weight_cost_max, layerG
+    return cost, storage_cost, Istorage_max, weight_cost_max, layerG
     
 end
 
@@ -301,7 +342,7 @@ function back_track(model, map, res, k, cases, count)
    cases[#cases + 1] = map[k]
    if(k == #map) then
       --if(total_solutions == 0) then
-      local cost, storage_cost, weight_cost, layerG = cost_calculate(model, cases)
+      local cost, storage_cost, Istorage, weight_cost, layerG = cost_calculate(model, cases)
       local case_str = ''
       for i = 1, #cases-1 do
         case_str = case_str..tostring(cases[i])..'-'
@@ -319,6 +360,7 @@ function back_track(model, map, res, k, cases, count)
       	 tab['storage_cost'] = bw_cost 
 		 total_solutions = total_solutions + 1
 		 tab['cone'] = case_str
+		 tab['IScost'] = Istorage
 		 tab['total_cost'] = tab['cost'] + tab['storage_cost'] 
 		 tab['weight_cost'] = weight_cost
 		 tab['layer'] = layerG
@@ -333,7 +375,8 @@ function back_track(model, map, res, k, cases, count)
       if(unique_solutions[reuse_cost] == nil) then
          tab = {}      
       	 tab['cost'] = reuse_cost
-      	 tab['storage_cost'] = bw_cost 
+      	 tab['storage_cost'] = bw_cost
+      	 tab['IScost'] = Istorage 
 		 total_solutions = total_solutions + 1
 		 tab['cone'] = case_str
 		 tab['total_cost'] = tab['cost'] + tab['storage_cost'] 
@@ -353,6 +396,7 @@ function back_track(model, map, res, k, cases, count)
       	     tab['cost'] = reuse_cost
       	 	 tab['storage_cost'] = bw_cost 
 			 tab['cone'] = case_str
+			 tab['IScost'] = Istorage
 			 tab['total_cost'] = tab['cost'] + tab['storage_cost'] 
 			 tab['weight_cost'] = weight_cost
 			 tab['layer'] = layerG 		

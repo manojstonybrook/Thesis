@@ -344,9 +344,12 @@ function back_track(model, map, res, k, cases, count)
       --if(total_solutions == 0) then
       local cost, storage_cost, Istorage, weight_cost, layerG = cost_calculate(model, cases)
       local case_str = ''
+      local Mpyramid = {}
       for i = 1, #cases-1 do
         case_str = case_str..tostring(cases[i])..'-'
+        Mpyramid[i] = cases[i]
       end
+      Mpyramid[#Mpyramid+1] = 0
       case_str = case_str..'0'
       --[[local reuse_cost = cost + weight_cost
       local bw_cost = storage_cost + weight_cost]]--
@@ -364,6 +367,7 @@ function back_track(model, map, res, k, cases, count)
 		 tab['total_cost'] = tab['cost'] + tab['storage_cost'] 
 		 tab['weight_cost'] = weight_cost
 		 tab['layer'] = layerG
+		 tab['Mpyramid'] = Mpyramid
 		 res[total_solutions] = tab
          
 	     tab = {}
@@ -381,8 +385,8 @@ function back_track(model, map, res, k, cases, count)
 		 tab['cone'] = case_str
 		 tab['total_cost'] = tab['cost'] + tab['storage_cost'] 
 		 tab['weight_cost'] = weight_cost
-		 tab['layer'] = layerG 		
-
+		 tab['layer'] = layerG
+         tab['Mpyramid'] = Mpyramid
 		 res[total_solutions] = tab
          
 	     tab = {}
@@ -399,6 +403,7 @@ function back_track(model, map, res, k, cases, count)
 			 tab['IScost'] = Istorage
 			 tab['total_cost'] = tab['cost'] + tab['storage_cost'] 
 			 tab['weight_cost'] = weight_cost
+			 tab['Mpyramid'] = Mpyramid
 			 tab['layer'] = layerG 		
              local index = unique_solutions[reuse_cost]['index'] 
 			 res[index] = tab

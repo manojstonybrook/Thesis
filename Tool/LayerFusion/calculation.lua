@@ -1,6 +1,7 @@
 require('nn')
 require 'multiple_cone.lua'
 require 'TimeMultiplex.lua'
+require 'Parameters.lua'
 
 cmd = torch.CmdLine()
 cmd:text()
@@ -80,7 +81,7 @@ end
 function calculate_roi(inputNet, count, pixel1, shift, top)
    
     local start = 1
-    if(top~=nil) then
+    if(top~=nil and top ~=0) then
       start = top 
     end
 
@@ -1201,6 +1202,7 @@ function init()
     H = tonumber(opt.H)
     input = torch.FloatTensor(channels, W, H)
     out = inputNet:forward(input)
+    print(inputNet.modules)
     local multi_cones = 0
     if(multi_cones == 1) then
 
@@ -1335,6 +1337,14 @@ if(multicone_stats == 1) then
 		TimeMultiplex(processed_res[i]['cone'], layerT, outfileCycle)
 		collectgarbage()
     end
+    
+    outfile:write(string.format("\nParameters for each cone\n\n"))
+	
+    for i = 1, #processed_res do
+        PrintParameters(inputNet, processed_res[i]['Mpyramid'], outfile)
+        outfile:write(string.format("\n-----------------------------\n"))
+    end
+    
 	--print(res_cost)
 else
 

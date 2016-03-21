@@ -73,7 +73,7 @@
 #th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test' --multicone --optimize  
 
 #VGG2 Without plot and optimize
-th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize
+#th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize
 
 #VGG2 Without plot and optimize
 #th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test' --multicone
@@ -82,6 +82,13 @@ th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --o
 #th calculation.lua --modelFile 'model_INP.net' --channels 3 --W 227 --H 227 --outfile 'ImageNetResults2_layers_test' --multicone --ascii
 
 #th calculation.lua --modelFile 'model_INP.net' --channels 3 --W 227 --H 227 --outfile 'ImageNetResults2_layers_optimize' --multicone --optimize --ascii
+
+#---------------------------------------------------------------------------------------------------------------------------------------------
+#FPGA Prints
+#VGG2 Without plot and optimize
+th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize --singlePyramid
+
+
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------

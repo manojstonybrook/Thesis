@@ -2,6 +2,7 @@ require('nn')
 require 'multiple_cone.lua'
 require 'TimeMultiplex.lua'
 require 'Parameters.lua'
+require 'FPGAParameters.lua'
 
 cmd = torch.CmdLine()
 cmd:text()
@@ -14,6 +15,7 @@ cmd:option('--model', '', 'Recomp or Reuse')
 cmd:option('--outfile', '', 'outfile')
 cmd:option('--ascii', false, 'format')
 cmd:option('--multicone', false, 'multicone evaluation')
+cmd:option('--singlePyramid', false, 'single pyramid calculation')
 cmd:option('--optimize', false, 'Optimization')
 cmd:option('--plot', false, 'Plots when we get same executions cycle at each layer')
 
@@ -60,7 +62,12 @@ if(opt.model == 'Recomp' or opt.model == 'recomp' or opt.model == 'comp' or opt.
    computation = 1
 else
    file = tostring(opt.outfile).. '_Reuse'
-   fileCycle = tostring(opt.outfile).. '_ReuseCycle'		
+   fileCycle = tostring(opt.outfile).. '_ReuseCycle'
+   if(opt.singlePyramid) then		
+     fileSinglePyramid = tostring(opt.outfile).. '_SinglePyramid'
+     outSinglePyramid = io.open(fileSinglePyramid, "w")
+   end  
+     
 end
 
 outfile = io.open(file, "w")
@@ -1313,6 +1320,7 @@ if(multicone_stats == 1) then
 	 outfile:write(string.format("%48s\t\t%10.2f\n", processed_res[i]['cone'], processed_res[i]['total_cost']/1024))
 	end
     ]]--
+    --[[
     processed_res = res
     insertion_sort(processed_res, 'cost')
 
@@ -1344,7 +1352,14 @@ if(multicone_stats == 1) then
         PrintParameters(inputNet, processed_res[i]['Mpyramid'], outfile)
         outfile:write(string.format("\n-----------------------------\n"))
     end
-    
+    ]]--
+
+    if(opt.singlePyramid) then		    
+       local single_cone = {19, 0}
+       outSinglePyramid:write(string.format("Input Network\n\n\n"))
+	   outSinglePyramid:write(string.format("%s\n", tostring(inputNet)))
+	   FPGAPrintParameters(inputNet, single_cone, outSinglePyramid)
+    end
 	--print(res_cost)
 else
 

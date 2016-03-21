@@ -46,7 +46,7 @@ end
 
 function PrintParameters(Network, str, outfile)
 
-    outfile:write(string.format("Multipyramid  "))
+    outfile:write(string.format("Pyramid  "))
     for i = 1, #str-1 do
       outfile:write(string.format("%d-", str[i]))  
     end

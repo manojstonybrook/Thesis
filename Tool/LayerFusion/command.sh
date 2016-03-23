@@ -89,8 +89,6 @@
 th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize --singlePyramid
 
 
-
-
 #----------------------------------------------------------------------------------------------------------------------------------------------
 #Generate the model
 

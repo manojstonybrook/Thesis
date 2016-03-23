@@ -29,21 +29,27 @@ function FPGAParameters(Network, bottom, top, outfile)
     local stride2 = pixel1[top]['br'][2]
     local stride = stride1 - stride2
     
-    outfile:write(string.format("const int strideX = %d; \nconst int strideY = %d\n", stride, stride))
+    outfile:write(string.format("const int strideX = %d; \nconst int strideY = %d;\n", stride, stride))
     
     local countConv = 1
     local countPool = 1
     local countPad = 1
+
     for i = top, bottom+1 do
        if(i == 1) then
          outfile:write(string.format("const int inputX = %d;\nconst int inputY = %d;\n", pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
        else if(Network.modules[i-1].__typename == 'nn.SpatialConvolution') then   
            outfile:write(string.format("const int f%dK =  %d;\nconst int f%dS =  %d;\n", countConv, Network.modules[i-1].kH, countConv, Network.modules[i-1].dH))
            outfile:write(string.format("const int TM%d =  %d;\nconst int TN%d =  %d;\n", countConv, Network.modules[i-1].nOutputPlane, countConv, Network.modules[i-1].nInputPlane)) 
-           outfile:write(string.format("const int filter%d[%d][%d][%d][%d];\n\n", countConv, Network.modules[i-1].nOutputPlane, Network.modules[i-1].nInputPlane, Network.modules[i-1].kH, Network.modules[i-1].kW))                
-           countConv = countConv + 1 
+           outfile:write(string.format("const float filter%d[%d][%d][%d][%d];\n\n", countConv, Network.modules[i-1].nOutputPlane, Network.modules[i-1].nInputPlane, Network.modules[i-1].kH, Network.modules[i-1].kW))
+
+		   if(countConv > 1) then
+			  outfile:write(string.format("const int HR%d =  %d, WR%d =  f%dK - f%dS;\nconst int HB%d =  f%dK - f%dS, WB%d =  %d;\n", countConv, pixel1[i-1]['br'][1]-pixel1[i-1]['tl'][1]+1, countConv, countConv, countConv, countConv, countConv, countConv, countConv,Network.modules[i-1].output:size()[3]))
+           end
+
+		   countConv = countConv + 1 
        else if(Network.modules[i-1].__typename == 'nn.SpatialMaxPooling') then   
-           outfile:write(string.format("const float pool%dH = %d;\nconst float pool%dS = %d;\n\n", countPool, Network.modules[i-1].kH, countPool, Network.modules[i-1].dH))
+           outfile:write(string.format("const int pool%dH = %d;\nconst int pool%dS = %d;\n\n", countPool, Network.modules[i-1].kH, countPool, Network.modules[i-1].dH))
            countPool = countPool + 1
        else if(Network.modules[i-1].__typename == 'nn.SpatialZeroPadding') then   
            outfile:write(string.format("const float pad%d = %d\n\n", countPad, Network.modules[i-1].pad_l)) 
@@ -61,40 +67,23 @@ function FPGAParameters(Network, bottom, top, outfile)
     countPool = 1
     countPad = 1
     
-    
     for i = top, bottom+1 do
        if(i == 1) then
          outfile:write(string.format("float input[%d][%d][%d]\n", opt.channels, pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
-       else if(Network.modules[i-1].__typename == 'nn.SpatialConvolution') then   
-           outfile:write(string.format("float conv%d[%d][%d][%d]\n", countConv, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
-           countConv = countConv + 1 
-       else if(Network.modules[i-1].__typename == 'nn.SpatialMaxPooling') then   
-           outfile:write(string.format("float pool%d[%d][%d][%d]\n", countPool, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
-           countPool = countPool + 1
-       else if(Network.modules[i-1].__typename == 'nn.SpatialZeroPadding') then   
-           outfile:write(string.format("float pad%d[%d][%d][%d]\n", countPad, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1)) 
-           countPad = countPad + 1       
-       else
-       
-       end
-       end
-       end
-       end   
-   end
+       else if(Network.modules[i-1].__typename == 'nn.SpatialConvolution') then
 
-    
+			if (countConv > 1) then
+			  outfile:write(string.format("float onchipB%d[%d][%d][%d]\n", countConv, Network.modules[i-1].output:size()[1], Network.modules[i-1].kH - Network.modules[i-1].dH, Network.modules[i-1].output:size()[2]))
+			  outfile:write(string.format("float onchipR%d[%d][%d][%d]\n", countConv, Network.modules[i-1].output:size()[1], pixel1[i-1]['br'][1]-pixel1[i-1]['tl'][1]+1, Network.modules[i-1].kH - Network.modules[i-1].dH))
+           end             
       
-    for i = top, bottom+1 do
-       if(i == 1) then
-         outfile:write(string.format("float input[%d][%d][%d]\n", opt.channels, pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
-       else if(Network.modules[i-1].__typename == 'nn.SpatialConvolution') then   
-           outfile:write(string.format("float conv%d[%d][%d][%d]\n", countConv, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
+           outfile:write(string.format("float conv%d[%d][%d][%d];\n", countConv, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
            countConv = countConv + 1 
        else if(Network.modules[i-1].__typename == 'nn.SpatialMaxPooling') then   
-           outfile:write(string.format("float pool%d[%d][%d][%d]\n", countPool, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
+           outfile:write(string.format("float pool%d[%d][%d][%d];\n", countPool, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
            countPool = countPool + 1
        else if(Network.modules[i-1].__typename == 'nn.SpatialZeroPadding') then   
-           outfile:write(string.format("float pad%d[%d][%d][%d]\n", countPad, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1)) 
+           outfile:write(string.format("float pad%d[%d][%d][%d];\n", countPad, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1)) 
            countPad = countPad + 1       
        else
        

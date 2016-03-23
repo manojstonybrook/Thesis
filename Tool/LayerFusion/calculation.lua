@@ -1355,6 +1355,7 @@ if(multicone_stats == 1) then
     ]]--
 
     if(opt.singlePyramid) then		    
+		
        local single_cone = {19, 0}
        outSinglePyramid:write(string.format("Input Network\n\n\n"))
 	   outSinglePyramid:write(string.format("%s\n", tostring(inputNet)))

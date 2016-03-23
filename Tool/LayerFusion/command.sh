@@ -86,9 +86,14 @@
 #---------------------------------------------------------------------------------------------------------------------------------------------
 #FPGA Prints
 #VGG2 Without plot and optimize
-th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize --singlePyramid
+#th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize --singlePyramid
+
+#th calculation.lua --modelFile 'model_VGG19.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize --singlePyramid
+
+#th calculation.lua --modelFile 'model_VGG19.net' --channels 3 --W 224 --H 224 --outfile 'VGG19_Results' --model 'U'
 
 
+th calculation.lua --modelFile 'model_INP.net' --channels 3 --W 227 --H 227 --outfile 'ImageNet' --model 'U'  --ascii
 #----------------------------------------------------------------------------------------------------------------------------------------------
 #Generate the model
 
@@ -109,4 +114,9 @@ th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --o
 
 #INP2
 #th model_generate.lua --model INP2
+
+
+#VGG 19
+#th model_generate.lua --model vgg19
+
 

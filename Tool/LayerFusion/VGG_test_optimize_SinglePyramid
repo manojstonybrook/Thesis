@@ -1,0 +1,680 @@
+Input Network
+
+
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> (7) -> (8) -> (9) -> (10) -> (11) -> (12) -> (13) -> (14) -> (15) -> (16) -> (17) -> (18) -> (19) -> (20) -> (21) -> output]
+  (1): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (2): nn.SpatialConvolution
+  (3): nn.Threshold
+  (4): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (5): nn.SpatialConvolution
+  (6): nn.Threshold
+  (7): nn.SpatialMaxPooling
+  (8): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (9): nn.SpatialConvolution
+  (10): nn.Threshold
+  (11): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (12): nn.SpatialConvolution
+  (13): nn.Threshold
+  (14): nn.SpatialMaxPooling
+  (15): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (16): nn.SpatialConvolution
+  (17): nn.Threshold
+  (18): nn.SpatialZeroPadding(l=1,r=1,t=1,b=1)
+  (19): nn.SpatialConvolution
+  (20): nn.Threshold
+  (21): nn.Reshape(802816)
+}
+Pyramid  20-0
+
+         0 - 20 Pyramid 
+
+const int strideX = 4; 
+const int strideY = 4;
+const int inputX = 18;
+const int inputY = 18;
+const float pad1 = 1
+
+const int f1K =  3;
+const int f1S =  1;
+const int TM1 =  64;
+const int TN1 =  3;
+const float filter1[64][3][3][3];
+
+const float pad2 = 1
+
+const int f2K =  3;
+const int f2S =  1;
+const int TM2 =  64;
+const int TN2 =  64;
+const float filter2[64][64][3][3];
+
+const int HR2 =  18, WR2 =  f2K - f2S;
+const int HB2 =  f2K - f2S, WB2 =  224;
+const int pool1K = 2;
+const int pool1S = 2;
+
+const float pad3 = 1
+
+const int f3K =  3;
+const int f3S =  1;
+const int TM3 =  128;
+const int TN3 =  64;
+const float filter3[128][64][3][3];
+
+const int HR3 =  9, WR3 =  f3K - f3S;
+const int HB3 =  f3K - f3S, WB3 =  112;
+const float pad4 = 1
+
+const int f4K =  3;
+const int f4S =  1;
+const int TM4 =  128;
+const int TN4 =  128;
+const float filter4[128][128][3][3];
+
+const int HR4 =  8, WR4 =  f4K - f4S;
+const int HB4 =  f4K - f4S, WB4 =  112;
+const int pool2K = 2;
+const int pool2S = 2;
+
+const float pad5 = 1
+
+const int f5K =  3;
+const int f5S =  1;
+const int TM5 =  256;
+const int TN5 =  128;
+const float filter5[256][128][3][3];
+
+const int HR5 =  4, WR5 =  f5K - f5S;
+const int HB5 =  f5K - f5S, WB5 =  56;
+const float pad6 = 1
+
+const int f6K =  3;
+const int f6S =  1;
+const int TM6 =  256;
+const int TN6 =  256;
+const float filter6[256][256][3][3];
+
+const int HR6 =  3, WR6 =  f6K - f6S;
+const int HB6 =  f6K - f6S, WB6 =  56;
+
+
+float inputP[3][18][18]
+float pad1[3][19][19];
+float conv1[64][17][17];
+float pad2[64][18][18];
+float onchipB2[64][2][226]
+float onchipR2[64][18][2]
+float conv2[64][16][16];
+float pool1[64][8][8];
+float pad3[64][9][9];
+float onchipB3[64][2][114]
+float onchipR3[64][9][2]
+float conv3[128][7][7];
+float pad4[128][8][8];
+float onchipB4[128][2][114]
+float onchipR4[128][8][2]
+float conv4[128][6][6];
+float pool2[128][3][3];
+float pad5[128][4][4];
+float onchipB5[128][2][58]
+float onchipR5[128][4][2]
+float conv5[256][2][2];
+float pad6[256][3][3];
+float onchipB6[256][2][58]
+float onchipR6[256][3][2]
+float conv6[256][1][1];
+int inputW, inputH;
+int inPad1W, inPad1H, outPad1W, outPad1H;
+int pad1_l, pad1_r, pad1_t, pad1_b;
+int inConv1W, inConv1H, outConv1W, outConv1H;
+int inPad2W, inPad2H, outPad2W, outPad2H;
+int pad2_l, pad2_r, pad2_t, pad2_b;
+int inConv2W, inConv2H, outConv2W, outConv2H;
+int inPool1W, inPool1H, outPool1W, outPool1H;
+int inPad3W, inPad3H, outPad3W, outPad3H;
+int pad3_l, pad3_r, pad3_t, pad3_b;
+int inConv3W, inConv3H, outConv3W, outConv3H;
+int inPad4W, inPad4H, outPad4W, outPad4H;
+int pad4_l, pad4_r, pad4_t, pad4_b;
+int inConv4W, inConv4H, outConv4W, outConv4H;
+int inPool2W, inPool2H, outPool2W, outPool2H;
+int inPad5W, inPad5H, outPad5W, outPad5H;
+int pad5_l, pad5_r, pad5_t, pad5_b;
+int inConv5W, inConv5H, outConv5W, outConv5H;
+int inPad6W, inPad6H, outPad6W, outPad6H;
+int pad6_l, pad6_r, pad6_t, pad6_b;
+int inConv6W, inConv6H, outConv6W, outConv6H;
+bool Group1;
+int Group1cond = 53;
+bool Group2;
+int Group2cond = 54;
+bool Group3;
+int Group3cond = 55;
+bool Group4;
+int Group4cond = 56;
+const int NRows = 56;
+const int NCols = 56;
+int rowT;
+int colT;
+
+for(int row = 0; row < NRows; row++){
+	for(int col = 0; col < NCols; row++){
+
+		rowT = inputY + (row-1) * strideY + f1K - f1S;
+		colT = inputX + (col-1) * strideX + f1K - f1S;
+
+		if(row == Group1cond || col == Group1cond)
+		 Group1 = false;
+		else
+		 Group1 = true;
+		if(row == Group2cond || col == Group2cond)
+		 Group2 = false;
+		else
+		 Group2 = true;
+		if(row == Group3cond || col == Group3cond)
+		 Group3 = false;
+		else
+		 Group3 = true;
+		 //calc parameters
+		if(row == 0 && col == 0){
+			inputW = inputX;
+			inputH = inputY;
+
+			pad1_l = pad1;
+			pad1_r = 0;
+			pad1_t = pad1;
+			pad1_b = 0;
+			inPad1W = inputW;
+			inPad1H = inputH;
+			outPad1W = inPad1W + pad1_l + pad1_r;
+			outPad1H = inPad1H + pad1_t + pad1_b;
+
+			inConv1W = outPad1W;
+			inConv1H = outPad1H;
+			outConv1W = (inConv1W - f1K)/f1S + 1;
+			outConv1H = (inConv1H - f1K)/f1S + 1;
+
+			pad2_l = pad2;
+			pad2_r = 0;
+			pad2_t = pad2;
+			pad2_b = 0;
+			inPad2W = outConv1W;
+			inPad2H = outConv1H;
+			outPad2W = inPad2W + pad2_l + pad2_r;
+			outPad2H = inPad2H + pad2_t + pad2_b;
+
+			inConv2W = outPad2W;
+			inConv2H = outPad2H;
+			outConv2W = (inConv2W - f2K)/f2S + 1;
+			outConv2H = (inConv2H - f2K)/f2S + 1;
+
+			inPool1W = outConv2W;
+			inPool1H = outConv2H;
+			outPool1W = (inPool1W - pool1K)/pool1S + 1;
+			outPool1H = (inPool1H - pool1K)/pool1S + 1;
+
+			pad3_l = pad3;
+			pad3_r = 0;
+			pad3_t = pad3;
+			pad3_b = 0;
+			inPad3W = outPad1W;
+			inPad3H = outPad1H;
+			outPad3W = inPad3W + pad3_l + pad3_r;
+			outPad3H = inPad3H + pad3_t + pad3_b;
+
+			inConv3W = outPad3W;
+			inConv3H = outPad3H;
+			outConv3W = (inConv3W - f3K)/f3S + 1;
+			outConv3H = (inConv3H - f3K)/f3S + 1;
+
+			pad4_l = pad4;
+			pad4_r = 0;
+			pad4_t = pad4;
+			pad4_b = 0;
+			inPad4W = outConv3W;
+			inPad4H = outConv3H;
+			outPad4W = inPad4W + pad4_l + pad4_r;
+			outPad4H = inPad4H + pad4_t + pad4_b;
+
+			inConv4W = outPad4W;
+			inConv4H = outPad4H;
+			outConv4W = (inConv4W - f4K)/f4S + 1;
+			outConv4H = (inConv4H - f4K)/f4S + 1;
+
+			inPool2W = outConv4W;
+			inPool2H = outConv4H;
+			outPool2W = (inPool2W - pool2K)/pool2S + 1;
+			outPool2H = (inPool2H - pool2K)/pool2S + 1;
+
+			pad5_l = pad5;
+			pad5_r = 0;
+			pad5_t = pad5;
+			pad5_b = 0;
+			inPad5W = outPad2W;
+			inPad5H = outPad2H;
+			outPad5W = inPad5W + pad5_l + pad5_r;
+			outPad5H = inPad5H + pad5_t + pad5_b;
+
+			inConv5W = outPad5W;
+			inConv5H = outPad5H;
+			outConv5W = (inConv5W - f5K)/f5S + 1;
+			outConv5H = (inConv5H - f5K)/f5S + 1;
+
+			pad6_l = pad6;
+			pad6_r = 0;
+			pad6_t = pad6;
+			pad6_b = 0;
+			inPad6W = outConv5W;
+			inPad6H = outConv5H;
+			outPad6W = inPad6W + pad6_l + pad6_r;
+			outPad6H = inPad6H + pad6_t + pad6_b;
+
+			inConv6W = outPad6W;
+			inConv6H = outPad6H;
+			outConv6W = (inConv6W - f6K)/f6S + 1;
+			outConv6H = (inConv6H - f6K)/f6S + 1;
+		}
+		else if(row == 0){
+			inputW = strideX + f1K-f1S;
+			inputH = inputY;
+
+			pad1_l = 0;
+			pad1_r = 0;
+			pad1_t = 0;
+			pad1_b = 0;
+			if(col == Group1cond-1)
+				pad1_r = pad1;
+			inPad1W = inputW;
+			inPad1H = inputH;
+			outPad1W = inPad1W + pad1_l + pad1_r;
+			outPad1H = inPad1H + pad1_t + pad1_b;
+
+			inConv1W = outPad1W;
+			inConv1H = outPad1H;
+			outConv1W = (inConv1W - f1K)/f1S + 1;
+			outConv1H = (inConv1H - f1K)/f1S + 1;
+
+			pad2_l = 0;
+			pad2_r = 0;
+			pad2_t = 0;
+			pad2_b = 0;
+			if(col == Group1cond-1)
+				pad2_r = pad2;
+			inPad2W = outConv1W;
+			inPad2H = outConv1H;
+			outPad2W = inPad2W + pad2_l + pad2_r;
+			outPad2H = inPad2H + pad2_t + pad2_b;
+
+			inConv2W = outPad2W;
+			inConv2H = outPad2H;
+			outConv2W = (inConv2W - f2K)/f2S + 1;
+			outConv2H = (inConv2H - f2K)/f2S + 1;
+
+			inPool1W = outConv2W;
+			inPool1H = outConv2H;
+			outPool1W = (inPool1W - pool1K)/pool1S + 1;
+			outPool1H = (inPool1H - pool1K)/pool1S + 1;
+
+			pad3_l = 0;
+			pad3_r = 0;
+			pad3_t = 0;
+			pad3_b = 0;
+			if(col == Group2cond-1)
+				pad3_r = pad3;
+			inPad3W = outPad1W;
+			inPad3H = outPad1H;
+			outPad3W = inPad3W + pad3_l + pad3_r;
+			outPad3H = inPad3H + pad3_t + pad3_b;
+
+			inConv3W = outPad3W;
+			inConv3H = outPad3H;
+			outConv3W = (inConv3W - f3K)/f3S + 1;
+			outConv3H = (inConv3H - f3K)/f3S + 1;
+
+			pad4_l = 0;
+			pad4_r = 0;
+			pad4_t = 0;
+			pad4_b = 0;
+			if(col == Group2cond-1)
+				pad4_r = pad4;
+			inPad4W = outConv3W;
+			inPad4H = outConv3H;
+			outPad4W = inPad4W + pad4_l + pad4_r;
+			outPad4H = inPad4H + pad4_t + pad4_b;
+
+			inConv4W = outPad4W;
+			inConv4H = outPad4H;
+			outConv4W = (inConv4W - f4K)/f4S + 1;
+			outConv4H = (inConv4H - f4K)/f4S + 1;
+
+			inPool2W = outConv4W;
+			inPool2H = outConv4H;
+			outPool2W = (inPool2W - pool2K)/pool2S + 1;
+			outPool2H = (inPool2H - pool2K)/pool2S + 1;
+
+			pad5_l = 0;
+			pad5_r = 0;
+			pad5_t = 0;
+			pad5_b = 0;
+			if(col == Group3cond-1)
+				pad5_r = pad5;
+			inPad5W = outPad2W;
+			inPad5H = outPad2H;
+			outPad5W = inPad5W + pad5_l + pad5_r;
+			outPad5H = inPad5H + pad5_t + pad5_b;
+
+			inConv5W = outPad5W;
+			inConv5H = outPad5H;
+			outConv5W = (inConv5W - f5K)/f5S + 1;
+			outConv5H = (inConv5H - f5K)/f5S + 1;
+
+			pad6_l = 0;
+			pad6_r = 0;
+			pad6_t = 0;
+			pad6_b = 0;
+			if(col == Group4cond-1)
+				pad6_r = pad6;
+			inPad6W = outConv5W;
+			inPad6H = outConv5H;
+			outPad6W = inPad6W + pad6_l + pad6_r;
+			outPad6H = inPad6H + pad6_t + pad6_b;
+
+			inConv6W = outPad6W;
+			inConv6H = outPad6H;
+			outConv6W = (inConv6W - f6K)/f6S + 1;
+			outConv6H = (inConv6H - f6K)/f6S + 1;
+		}
+		else if(col == 0){
+			inputW = inputX;
+			inputH = strideY + f1K-f1S;
+
+			pad1_l = 0;
+			pad1_r = 0;
+			pad1_t = 0;
+			pad1_b = 0;
+			if(row == Group1cond-1)
+				pad1_b = pad1;
+			inPad1W = inputW;
+			inPad1H = inputH;
+			outPad1W = inPad1W + pad1_l + pad1_r;
+			outPad1H = inPad1H + pad1_t + pad1_b;
+
+			inConv1W = outPad1W;
+			inConv1H = outPad1H;
+			outConv1W = (inConv1W - f1K)/f1S + 1;
+			outConv1H = (inConv1H - f1K)/f1S + 1;
+
+			pad2_l = 0;
+			pad2_r = 0;
+			pad2_t = 0;
+			pad2_b = 0;
+			if(row == Group1cond-1)
+				pad2_b = pad2;
+			inPad2W = outConv1W;
+			inPad2H = outConv1H;
+			outPad2W = inPad2W + pad2_l + pad2_r;
+			outPad2H = inPad2H + pad2_t + pad2_b;
+
+			inConv2W = outPad2W;
+			inConv2H = outPad2H;
+			outConv2W = (inConv2W - f2K)/f2S + 1;
+			outConv2H = (inConv2H - f2K)/f2S + 1;
+
+			inPool1W = outConv2W;
+			inPool1H = outConv2H;
+			outPool1W = (inPool1W - pool1K)/pool1S + 1;
+			outPool1H = (inPool1H - pool1K)/pool1S + 1;
+
+			pad3_l = 0;
+			pad3_r = 0;
+			pad3_t = 0;
+			pad3_b = 0;
+			if(row == Group2cond-1)
+				pad3_b = pad3;
+			inPad3W = outPad1W;
+			inPad3H = outPad1H;
+			outPad3W = inPad3W + pad3_l + pad3_r;
+			outPad3H = inPad3H + pad3_t + pad3_b;
+
+			inConv3W = outPad3W;
+			inConv3H = outPad3H;
+			outConv3W = (inConv3W - f3K)/f3S + 1;
+			outConv3H = (inConv3H - f3K)/f3S + 1;
+
+			pad4_l = 0;
+			pad4_r = 0;
+			pad4_t = 0;
+			pad4_b = 0;
+			if(row == Group2cond-1)
+				pad4_b = pad4;
+			inPad4W = outConv3W;
+			inPad4H = outConv3H;
+			outPad4W = inPad4W + pad4_l + pad4_r;
+			outPad4H = inPad4H + pad4_t + pad4_b;
+
+			inConv4W = outPad4W;
+			inConv4H = outPad4H;
+			outConv4W = (inConv4W - f4K)/f4S + 1;
+			outConv4H = (inConv4H - f4K)/f4S + 1;
+
+			inPool2W = outConv4W;
+			inPool2H = outConv4H;
+			outPool2W = (inPool2W - pool2K)/pool2S + 1;
+			outPool2H = (inPool2H - pool2K)/pool2S + 1;
+
+			pad5_l = 0;
+			pad5_r = 0;
+			pad5_t = 0;
+			pad5_b = 0;
+			if(row == Group3cond-1)
+				pad5_b = pad5;
+			inPad5W = outPad2W;
+			inPad5H = outPad2H;
+			outPad5W = inPad5W + pad5_l + pad5_r;
+			outPad5H = inPad5H + pad5_t + pad5_b;
+
+			inConv5W = outPad5W;
+			inConv5H = outPad5H;
+			outConv5W = (inConv5W - f5K)/f5S + 1;
+			outConv5H = (inConv5H - f5K)/f5S + 1;
+
+			pad6_l = 0;
+			pad6_r = 0;
+			pad6_t = 0;
+			pad6_b = 0;
+			if(row == Group4cond-1)
+				pad6_b = pad6;
+			inPad6W = outConv5W;
+			inPad6H = outConv5H;
+			outPad6W = inPad6W + pad6_l + pad6_r;
+			outPad6H = inPad6H + pad6_t + pad6_b;
+
+			inConv6W = outPad6W;
+			inConv6H = outPad6H;
+			outConv6W = (inConv6W - f6K)/f6S + 1;
+			outConv6H = (inConv6H - f6K)/f6S + 1;
+		}
+		else{
+			inputW = inputX;
+			inputH = strideY + f1K-f1S;
+
+			pad1_l = 0;
+			pad1_r = 0;
+			pad1_t = 0;
+			pad1_b = 0;
+			if(row == Group1cond-1)
+				pad1_b = pad1;
+			else if(col == Group1cond-1)
+				pad1_r = 0;
+			else if(col == Group1cond-1 && row == Group1cond-1)
+			{
+				pad1_r = pad1;
+				pad1_b = pad1;
+			}
+			inPad1W = inputW;
+			inPad1H = inputH;
+			outPad1W = inPad1W + pad1_l + pad1_r;
+			outPad1H = inPad1H + pad1_t + pad1_b;
+
+			inConv1W = outPad1W;
+			inConv1H = outPad1H;
+			outConv1W = (inConv1W - f1K)/f1S + 1;
+			outConv1H = (inConv1H - f1K)/f1S + 1;
+
+			pad2_l = 0;
+			pad2_r = 0;
+			pad2_t = 0;
+			pad2_b = 0;
+			if(row == Group1cond-1)
+				pad2_b = pad2;
+			else if(col == Group1cond-1)
+				pad2_r = 0;
+			else if(col == Group1cond-1 && row == Group1cond-1)
+			{
+				pad2_r = pad2;
+				pad2_b = pad2;
+			}
+			inPad2W = outConv1W;
+			inPad2H = outConv1H;
+			outPad2W = inPad2W + pad2_l + pad2_r;
+			outPad2H = inPad2H + pad2_t + pad2_b;
+
+			inConv2W = outPad2W;
+			inConv2H = outPad2H;
+			outConv2W = (inConv2W - f2K)/f2S + 1;
+			outConv2H = (inConv2H - f2K)/f2S + 1;
+
+			inPool1W = outConv2W;
+			inPool1H = outConv2H;
+			outPool1W = (inPool1W - pool1K)/pool1S + 1;
+			outPool1H = (inPool1H - pool1K)/pool1S + 1;
+
+			pad3_l = 0;
+			pad3_r = 0;
+			pad3_t = 0;
+			pad3_b = 0;
+			if(row == Group2cond-1)
+				pad3_b = pad3;
+			else if(col == Group2cond-1)
+				pad3_r = 0;
+			else if(col == Group2cond-1 && row == Group2cond-1)
+			{
+				pad3_r = pad3;
+				pad3_b = pad3;
+			}
+			inPad3W = outPad1W;
+			inPad3H = outPad1H;
+			outPad3W = inPad3W + pad3_l + pad3_r;
+			outPad3H = inPad3H + pad3_t + pad3_b;
+
+			inConv3W = outPad3W;
+			inConv3H = outPad3H;
+			outConv3W = (inConv3W - f3K)/f3S + 1;
+			outConv3H = (inConv3H - f3K)/f3S + 1;
+
+			pad4_l = 0;
+			pad4_r = 0;
+			pad4_t = 0;
+			pad4_b = 0;
+			if(row == Group2cond-1)
+				pad4_b = pad4;
+			else if(col == Group2cond-1)
+				pad4_r = 0;
+			else if(col == Group2cond-1 && row == Group2cond-1)
+			{
+				pad4_r = pad4;
+				pad4_b = pad4;
+			}
+			inPad4W = outConv3W;
+			inPad4H = outConv3H;
+			outPad4W = inPad4W + pad4_l + pad4_r;
+			outPad4H = inPad4H + pad4_t + pad4_b;
+
+			inConv4W = outPad4W;
+			inConv4H = outPad4H;
+			outConv4W = (inConv4W - f4K)/f4S + 1;
+			outConv4H = (inConv4H - f4K)/f4S + 1;
+
+			inPool2W = outConv4W;
+			inPool2H = outConv4H;
+			outPool2W = (inPool2W - pool2K)/pool2S + 1;
+			outPool2H = (inPool2H - pool2K)/pool2S + 1;
+
+			pad5_l = 0;
+			pad5_r = 0;
+			pad5_t = 0;
+			pad5_b = 0;
+			if(row == Group3cond-1)
+				pad5_b = pad5;
+			else if(col == Group3cond-1)
+				pad5_r = 0;
+			else if(col == Group3cond-1 && row == Group3cond-1)
+			{
+				pad5_r = pad5;
+				pad5_b = pad5;
+			}
+			inPad5W = outPad2W;
+			inPad5H = outPad2H;
+			outPad5W = inPad5W + pad5_l + pad5_r;
+			outPad5H = inPad5H + pad5_t + pad5_b;
+
+			inConv5W = outPad5W;
+			inConv5H = outPad5H;
+			outConv5W = (inConv5W - f5K)/f5S + 1;
+			outConv5H = (inConv5H - f5K)/f5S + 1;
+
+			pad6_l = 0;
+			pad6_r = 0;
+			pad6_t = 0;
+			pad6_b = 0;
+			if(row == Group4cond-1)
+				pad6_b = pad6;
+			else if(col == Group4cond-1)
+				pad6_r = 0;
+			else if(col == Group4cond-1 && row == Group4cond-1)
+			{
+				pad6_r = pad6;
+				pad6_b = pad6;
+			}
+			inPad6W = outConv5W;
+			inPad6H = outConv5H;
+			outPad6W = inPad6W + pad6_l + pad6_r;
+			outPad6H = inPad6H + pad6_t + pad6_b;
+
+			inConv6W = outPad6W;
+			inConv6H = outPad6H;
+			outConv6W = (inConv6W - f6K)/f6S + 1;
+			outConv6H = (inConv6H - f6K)/f6S + 1;
+		}
+		if(Group1){
+			<>ReadInput();
+			<>padding();
+			<>ReadData();
+			<>convolution();
+			<>padding();
+			<>ReadData();
+			<>convolution();
+			<>pooling();
+		}
+		if(Group2){
+			<>padding();
+			<>ReadData();
+			<>convolution();
+			<>padding();
+			<>ReadData();
+			<>convolution();
+			<>pooling();
+		}
+		if(Group3){
+			<>padding();
+			<>ReadData();
+			<>convolution();
+		}
+			<>padding();
+			<>ReadData();
+			<>convolution();
+}
+}
+
+

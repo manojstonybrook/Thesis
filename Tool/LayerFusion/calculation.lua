@@ -1272,6 +1272,8 @@ init()
 if(multicone_stats == 1) then
 	local map = cone_position(inputNet, count)
 	print(map)
+	map = nil
+	map = {20, 0}
 	local res = {}
 	local cases = {}
 	local total_solutions = back_track(inputNet, map, res, 1, cases, count)
@@ -1320,14 +1322,14 @@ if(multicone_stats == 1) then
 	 outfile:write(string.format("%48s\t\t%10.2f\n", processed_res[i]['cone'], processed_res[i]['total_cost']/1024))
 	end
     ]]--
-    --[[
+    
     processed_res = res
     insertion_sort(processed_res, 'cost')
 
 	outfile:write(string.format("\nAll Costs together\n"))
 	outfile:write(string.format("\n\t\t\t\t\t\t\t\t\t\t\tCone\t\t\tReUse Cost\t\t\tIntermediate Storage Cost\t\t\tBandwidth\t\t\tWeight Cost\n"))
 	
-	for i = 1, #processed_res do
+	for i = #processed_res, #processed_res do
 	   outfile:write(string.format("%48s\t\t\t%10.2f\t\t\t%10.2f\t\t\t\t\t\t%10.2f\t\t\t%10.2f\n", processed_res[i]['cone'], processed_res[i]['cost']/1024, processed_res[i]['IScost']/1024, (processed_res[i]['storage_cost'])/1024, processed_res[i]['weight_cost']/1024))
 		  
 		local layerT = {}
@@ -1352,8 +1354,7 @@ if(multicone_stats == 1) then
         PrintParameters(inputNet, processed_res[i]['Mpyramid'], outfile)
         outfile:write(string.format("\n-----------------------------\n"))
     end
-    ]]--
-
+    
     if(opt.singlePyramid) then		    
 		
        local single_cone = {20, 0}

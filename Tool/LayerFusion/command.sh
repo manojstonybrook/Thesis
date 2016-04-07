@@ -92,7 +92,6 @@ th calculation.lua --modelFile 'model_VGG19.net' --channels 3 --W 224 --H 224 --
 
 #th calculation.lua --modelFile 'model_VGG19.net' --channels 3 --W 224 --H 224 --outfile 'VGG19_Results' --model 'U'
 
-
 #th calculation.lua --modelFile 'model_INP.net' --channels 3 --W 227 --H 227 --outfile 'ImageNet' --model 'U'  --ascii
 #----------------------------------------------------------------------------------------------------------------------------------------------
 #Generate the model

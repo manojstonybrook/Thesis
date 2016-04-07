@@ -4,7 +4,7 @@ require('gnuplot')
 DSP_LIMIT = 3600
 DSP_ADD = 2
 DSP_MUL = 3
-Cycle_diff = 100
+Cycle_diff = 2000
 AllSolution = 1
 
 function execution_cycles(layer, tuple)
@@ -17,12 +17,13 @@ local dsp = tuple['Tm'] * tuple['Tn'] * tuple['Tr'] * tuple['Tc'] * (DSP_ADD + D
 return dsp
 end
 
-function search_options(table, key)
+function search_options(table, key, ref)
   local cycleL, tupleL
   local DSPL = DSP_LIMIT
   local flag = false
   for cycle, _ in pairs(table) do
-    if(math.abs(cycle - key)  < Cycle_diff and table[cycle]['dsp'] < DSPL) then
+    local tupL = table[cycle]['tuple']
+    if(math.abs(cycle - key)  < Cycle_diff and table[cycle]['dsp'] < DSPL and (ref['Tm']%tupL['Tn'] <= 2)) then
 	 cycleL = cycle
 	 DSPL = table[cycle]['dsp']
 	 tupleL = table[cycle]['tuple']
@@ -47,8 +48,10 @@ function TimeMultiplex(pyramid, layerT, outfile)
 	table_cycle[i] = {}
 		for tm = 1, layer['M'], 1 do
 		   for tn = 1, layer['N'], 1 do
-		    for tr = 1, layer['R'], 1 do
-		     for tc = 1, layer['C'], 1  do
+		    --for tr = 1, layer['R'], 1 do
+		     --for tc = 1, layer['C'], 1  do
+		     for tr = 1, 1, 1 do
+		      for tc = 1, 1, 1  do
 			 count = count + 1
 			 --print(count)
 		     local tuple = {}
@@ -74,7 +77,6 @@ function TimeMultiplex(pyramid, layerT, outfile)
 				table.insert(table_cycle[i], cycles)
 				table.insert(table_dsp[i], dsp)         			
 			end		 
-
 	 	  end
 		end
 	  end
@@ -101,13 +103,15 @@ for cycle, _ in pairs(table_layer[1]) do
    cycle_layer[1] = cycle
    dsp_layer[1] = dsp
    tuple_layer[1] = tuple 
-
+   local ref_tuple = tuple
    for i = 2, N do
-	 local cycleL, DSPL, tupleL, flag = search_options(table_layer[i], cycle)
+	 local cycleL, DSPL, tupleL, flag = search_options(table_layer[i], cycle, ref_tuple)
 	 if(flag == false or dsp_t + DSPL > DSP_LIMIT) then
 		break
 	 end
-
+	--print(i)
+	--print(ref_tuple)    
+    ref_tuple = tupleL
 	dsp_t = dsp_t + DSPL		
 	cycle_layer[i] = cycleL
 	dsp_layer[i] = DSPL
@@ -165,7 +169,7 @@ outfile:write(string.format("\n"))
 
 outfile:write(string.format("Rows (C) \t\t\t")) 
 for j = 1, N do
-  outfile:write(string.format("%6d \t\t\t", layerT[j]['R']))
+  outfile:write(string.format("%6d \t\t\t", layerT[j]['C']))
 end
 outfile:write(string.format("\n"))  
 

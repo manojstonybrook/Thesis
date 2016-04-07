@@ -53,7 +53,7 @@ function FPGAParameters(Network, bottom, top, outfile)
            outfile:write(string.format("const int pool%dK = %d;\nconst int pool%dS = %d;\n\n", countPool, Network.modules[i-1].kH, countPool, Network.modules[i-1].dH))
            countPool = countPool + 1
        else if(Network.modules[i-1].__typename == 'nn.SpatialZeroPadding') then   
-           outfile:write(string.format("const float pad%d = %d\n\n", countPad, Network.modules[i-1].pad_l)) 
+           outfile:write(string.format("const float pad%d = %d;\n\n", countPad, Network.modules[i-1].pad_l)) 
            countPad = countPad + 1       
        else
        
@@ -71,12 +71,12 @@ function FPGAParameters(Network, bottom, top, outfile)
     --initializing on-chip buffers
     for i = top, bottom do
        if(i == 1) then
-         outfile:write(string.format("\n\nfloat inputP[%d][%d][%d]\n", opt.channels, pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
+         outfile:write(string.format("\n\nfloat inputP[%d][%d][%d];\n", opt.channels, pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))
        else if(Network.modules[i-1].__typename == 'nn.SpatialConvolution') then
 
 			if (countConv > 1) then
-			  outfile:write(string.format("float onchipB%d[%d][%d][%d]\n", countConv, Network.modules[i-2].output:size()[1], Network.modules[i-1].kH - Network.modules[i-1].dH, Network.modules[i-2].output:size()[2]))
-			  outfile:write(string.format("float onchipR%d[%d][%d][%d]\n", countConv, Network.modules[i-2].output:size()[1], pixel1[i-1]['br'][1]-pixel1[i-1]['tl'][1]+1, Network.modules[i-1].kH - Network.modules[i-1].dH))
+			  outfile:write(string.format("float onchipB%d[%d][%d][%d];\n", countConv, Network.modules[i-2].output:size()[1], Network.modules[i-1].kH - Network.modules[i-1].dH, Network.modules[i-2].output:size()[2]))
+			  outfile:write(string.format("float onchipR%d[%d][%d][%d];\n", countConv, Network.modules[i-2].output:size()[1], pixel1[i-1]['br'][1]-pixel1[i-1]['tl'][1]+1, Network.modules[i-1].kH - Network.modules[i-1].dH))
            end             
       
            outfile:write(string.format("float conv%d[%d][%d][%d];\n", countConv, Network.modules[i-1].output:size()[1], pixel1[i]['br'][1]-pixel1[i]['tl'][1]+1, pixel1[i]['br'][2]-pixel1[i]['tl'][2]+1))

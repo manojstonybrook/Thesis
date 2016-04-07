@@ -4,7 +4,7 @@ require('gnuplot')
 DSP_LIMIT = 3600
 DSP_ADD = 2
 DSP_MUL = 3
-Cycle_diff = 2000
+Cycle_diff = 200
 AllSolution = 1
 
 function execution_cycles(layer, tuple)
@@ -23,7 +23,7 @@ function search_options(table, key, ref)
   local flag = false
   for cycle, _ in pairs(table) do
     local tupL = table[cycle]['tuple']
-    if(math.abs(cycle - key)  < Cycle_diff and table[cycle]['dsp'] < DSPL and (ref['Tm']%tupL['Tn'] <= 2)) then
+    if(math.abs(cycle - key)  < Cycle_diff and table[cycle]['dsp'] < DSPL and (ref['Tm']%tupL['Tn'] == 0)) then
 	 cycleL = cycle
 	 DSPL = table[cycle]['dsp']
 	 tupleL = table[cycle]['tuple']
@@ -69,10 +69,10 @@ function TimeMultiplex(pyramid, layerT, outfile)
 				if(table_layer[i][cycles] == nil) then			  
 				  table_layer[i][cycles] = tab		    		 
 	  			else
-				  if(table_layer[i][cycles]['dsp'] > dsp) then
+				  --if(table_layer[i][cycles]['dsp'] > dsp) then
 					table_layer[i][cycles] = nil
 					table_layer[i][cycles] = tab
-				  end				
+				  --end				
 				end
 				table.insert(table_cycle[i], cycles)
 				table.insert(table_dsp[i], dsp)         			

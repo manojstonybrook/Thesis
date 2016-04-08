@@ -88,7 +88,18 @@
 #VGG2 Without plot and optimize
 #th calculation.lua --modelFile 'model_VGG2.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize --singlePyramid
 
-th calculation.lua --modelFile 'model_VGG19.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize --singlePyramid
+#VGG19
+#th calculation.lua --modelFile 'model_VGG19.net' --channels 3 --W 224 --H 224 --outfile 'VGG_test_optimize' --multicone  --optimize --singlePyramid
+
+#VGG4
+#th calculation.lua --modelFile 'model_VGG4.net' --channels 3 --W 224 --H 224 --outfile 'VGG4_test_optimize' --multicone  --optimize --singlePyramid
+
+#VGG3
+#th calculation.lua --modelFile 'model_VGG3.net' --channels 3 --W 224 --H 224 --outfile 'VGG3_test_optimize' --multicone  --optimize --singlePyramid
+
+#VGG5
+th calculation.lua --modelFile 'model_VGG5.net' --channels 3 --W 224 --H 224 --outfile 'VGG5_test_optimize' --multicone  --optimize --singlePyramid
+
 
 #th calculation.lua --modelFile 'model_VGG19.net' --channels 3 --W 224 --H 224 --outfile 'VGG19_Results' --model 'U'
 
@@ -118,4 +129,13 @@ th calculation.lua --modelFile 'model_VGG19.net' --channels 3 --W 224 --H 224 --
 #VGG 19
 #th model_generate.lua --model vgg19
 
+
+#VGG 4
+#th model_generate.lua --model vgg4
+
+#VGG 3
+#th model_generate.lua --model vgg3
+
+#VGG 5
+#th model_generate.lua --model vgg5
 

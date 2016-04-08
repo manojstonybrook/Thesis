@@ -458,6 +458,182 @@ else if(opt.model == 'VGG2' or opt.model == 'vgg2') then
     torch.save('model_VGG2.net', model)
 
 
+else if(opt.model == 'VGG3' or opt.model == 'vgg3') then
+    
+    --VGG 
+    channels = 3
+    width = 224
+    height = 224
+    nstates = {64, 64, 128}
+    filtsize = {3}
+    poolsize = 2
+    poolkernel = 2
+    stride = 1
+    reshape = 112*112*128
+    
+    model = nn.Sequential()
+    pad = 1
+    --conv1, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(channels,nstates[1],filtsize[1],filtsize[1],stride, stride))
+    model:add(nn.Threshold(0,0))
+    
+    --conv2, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[1],nstates[2],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+
+    --First Pooling 
+    model:add(nn.SpatialMaxPooling(poolkernel,poolkernel,poolsize,poolsize))
+    
+    --conv3, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[2],nstates[3],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+
+    model:add(nn.Reshape(reshape))
+    model:evaluate()
+    
+    --[[model:add(nn.Linear(reshape,nstates[6]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.Linear(nstates[6], nstates[7]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.Linear(nstates[7], nstates[8]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.LogSoftMax())]]--
+    model:type('torch.FloatTensor')
+    
+    --Im = torch.FloatTensor(3,224,224)
+    --out = model:forward(Im)
+    torch.save('model_VGG3.net', model)
+
+else if(opt.model == 'VGG4' or opt.model == 'vgg4') then
+    
+    --VGG 
+    channels = 3
+    width = 224
+    height = 224
+    nstates = {64, 64, 128, 128}
+    filtsize = {3}
+    poolsize = 2
+    poolkernel = 2
+    stride = 1
+    reshape = 56*56*128
+    
+    model = nn.Sequential()
+    pad = 1
+    --conv1, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(channels,nstates[1],filtsize[1],filtsize[1],stride, stride))
+    model:add(nn.Threshold(0,0))
+    
+    --conv2, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[1],nstates[2],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+
+    --First Pooling 
+    model:add(nn.SpatialMaxPooling(poolkernel,poolkernel,poolsize,poolsize))
+    
+    --conv3, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[2],nstates[3],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+
+    --conv4, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[3],nstates[4],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+    
+   --Second Pooling      
+    model:add(nn.SpatialMaxPooling(poolkernel,poolkernel,poolsize,poolsize))
+    
+    model:add(nn.Reshape(reshape))
+    model:evaluate()
+    
+    --[[model:add(nn.Linear(reshape,nstates[6]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.Linear(nstates[6], nstates[7]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.Linear(nstates[7], nstates[8]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.LogSoftMax())]]--
+    model:type('torch.FloatTensor')
+    
+    --Im = torch.FloatTensor(3,224,224)
+    --out = model:forward(Im)
+    torch.save('model_VGG4.net', model)
+else if(opt.model == 'VGG5' or opt.model == 'vgg5') then
+    
+    --VGG 
+    channels = 3
+    width = 224
+    height = 224
+    nstates = {64, 64, 128, 128, 256}
+    filtsize = {3}
+    poolsize = 2
+    poolkernel = 2
+    stride = 1
+    reshape = 56*56*256
+    
+    model = nn.Sequential()
+    pad = 1
+    --conv1, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(channels,nstates[1],filtsize[1],filtsize[1],stride, stride))
+    model:add(nn.Threshold(0,0))
+    
+    --conv2, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[1],nstates[2],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+
+    --First Pooling 
+    model:add(nn.SpatialMaxPooling(poolkernel,poolkernel,poolsize,poolsize))
+    
+    --conv3, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[2],nstates[3],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+
+    --conv4, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[3],nstates[4],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+    
+   --Second Pooling      
+    model:add(nn.SpatialMaxPooling(poolkernel,poolkernel,poolsize,poolsize))
+    
+    --conv5, relu
+    model:add(nn.SpatialZeroPadding(pad,pad,pad,pad))
+    model:add(nn.SpatialConvolution(nstates[4],nstates[5],filtsize[1],filtsize[1]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.Reshape(reshape))
+    model:evaluate()
+    --[[model:add(nn.Linear(reshape,nstates[6]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.Linear(nstates[6], nstates[7]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.Linear(nstates[7], nstates[8]))
+    model:add(nn.Threshold(0,0))
+    
+    model:add(nn.LogSoftMax())]]--
+    model:type('torch.FloatTensor')
+    
+    --Im = torch.FloatTensor(3,224,224)
+    --out = model:forward(Im)
+    torch.save('model_VGG5.net', model)
+
+
 else if(opt.model == 'VGG19' or opt.model == 'vgg19') then
     
     --VGG 
@@ -528,6 +704,7 @@ else if(opt.model == 'VGG19' or opt.model == 'vgg19') then
     --out = model:forward(Im)
     torch.save('model_VGG19.net', model)
 
+
 else if(opt.model == 'Test' or opt.model == 'T') then
     
     --bvlc Alexnet
@@ -564,6 +741,12 @@ else if(opt.model == 'Test' or opt.model == 'T') then
     print(out:size())
     torch.save('model_test.net', model, 'ascii')
 
+
+end
+
+end
+
+end
 
 end
 

@@ -141,6 +141,7 @@ function FPGAParameters(Network, bottom, top, outfile)
    local Ngroup = 1
    local Group = {}
    local start = poolsize[1]['col']
+   
    for i = 2, #poolsize do 
      if (poolsize[i]['col'] ~= start) then
         tab = {}
@@ -154,17 +155,15 @@ function FPGAParameters(Network, bottom, top, outfile)
         start = poolsize[i]['col']
      end 
    end
-   
-   Ngroup = #Group
-   for i = 1, Ngroup do
+	
+  Ngroup = #Group
+  for i = 1, Ngroup do
       outfile:write(string.format("bool Group%d;\n", i))
       local cond = Group[i]['cond']
       outfile:write(string.format("int Group%dcond = %d;\n", i, cond))
   end 
   outfile:write(string.format("bool Group%d;\n", #Group+1))
   outfile:write(string.format("int Group%dcond = %d;\n", #Group+1, Network.modules[bottom].output:size()[3]))
-  
-  
   
   -----------------------------------------------------------------------------------------------
     -- Code for row, col loop
@@ -275,12 +274,12 @@ function FPGAParameters(Network, bottom, top, outfile)
             prevH = string.format("outPad%dH", countPool)
             countPool = countPool + 1 
         else if(Network.modules[i].__typename == 'nn.SpatialZeroPadding') then
-             if(i > Group[countGroup]['layer']) then
+            if(countGroup < #Group and i > Group[countGroup]['layer']) then
                 countGroup = countGroup + 1
             end 
             outfile:write(string.format("\n\t\t\tpad%d_l = 0;\n", countPad))
             outfile:write(string.format("\t\t\tpad%d_r = 0;\n", countPad))
-            outfile:write(string.format("\t\t\tpad%d_t = 0;\n", countPad))
+            outfile:write(string.format("\t\t\tpad%d_t = pad%d;\n", countPad, countPad))
             outfile:write(string.format("\t\t\tpad%d_b = 0;\n", countPad))
             
             outfile:write(string.format("\t\t\tif(col == Group%dcond-1)\n", countGroup, countGroup))
@@ -338,10 +337,10 @@ function FPGAParameters(Network, bottom, top, outfile)
             prevH = string.format("outPad%dH", countPool)
             countPool = countPool + 1 
         else if(Network.modules[i].__typename == 'nn.SpatialZeroPadding') then
-             if(i > Group[countGroup]['layer']) then
+             if(countGroup < #Group and i > Group[countGroup]['layer']) then
                 countGroup = countGroup + 1
             end 
-            outfile:write(string.format("\n\t\t\tpad%d_l = 0;\n", countPad))
+            outfile:write(string.format("\n\t\t\tpad%d_l = pad%d;\n", countPad, countPad))
             outfile:write(string.format("\t\t\tpad%d_r = 0;\n", countPad))
             outfile:write(string.format("\t\t\tpad%d_t = 0;\n", countPad))
             outfile:write(string.format("\t\t\tpad%d_b = 0;\n", countPad))
@@ -401,7 +400,7 @@ function FPGAParameters(Network, bottom, top, outfile)
             prevH = string.format("outPad%dH", countPool)
             countPool = countPool + 1 
         else if(Network.modules[i].__typename == 'nn.SpatialZeroPadding') then
-             if(i > Group[countGroup]['layer']) then
+             if(countGroup < #Group and i > Group[countGroup]['layer']) then
                 countGroup = countGroup + 1
             end 
             outfile:write(string.format("\n\t\t\tpad%d_l = 0;\n", countPad))
@@ -412,7 +411,7 @@ function FPGAParameters(Network, bottom, top, outfile)
             outfile:write(string.format("\t\t\tif(row == Group%dcond-1)\n", countGroup))
             outfile:write(string.format("\t\t\t\tpad%d_b = pad%d;\n", countPad, countPad))
             outfile:write(string.format("\t\t\telse if(col == Group%dcond-1)\n", countGroup))
-            outfile:write(string.format("\t\t\t\tpad%d_r = 0;\n", countPad))            
+            outfile:write(string.format("\t\t\t\tpad%d_r = pad%d;\n", countPad, countPad))            
             outfile:write(string.format("\t\t\telse if(col == Group%dcond-1 && row == Group%dcond-1)\n", countGroup, countGroup))
             outfile:write(string.format("\t\t\t{\n\t\t\t\tpad%d_r = pad%d;\n", countPad, countPad))
             outfile:write(string.format("\t\t\t\tpad%d_b = pad%d;\n\t\t\t}\n", countPad, countPad))

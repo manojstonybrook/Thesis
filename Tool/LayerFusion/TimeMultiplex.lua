@@ -17,13 +17,14 @@ local dsp = tuple['Tm'] * tuple['Tn'] * tuple['Tr'] * tuple['Tc'] * (DSP_ADD + D
 return dsp
 end
 
-function search_options(table, key, ref)
+function search_options(table, key)
   local cycleL, tupleL
   local DSPL = DSP_LIMIT
   local flag = false
   for cycle, _ in pairs(table) do
     local tupL = table[cycle]['tuple']
-    if(math.abs(cycle - key)  < Cycle_diff and table[cycle]['dsp'] < DSPL and (ref['Tm']%tupL['Tn'] == 0)) then
+    --if(math.abs(cycle - key)  < Cycle_diff and table[cycle]['dsp'] < DSPL and (ref['Tm']%tupL['Tn'] == 0)) then -- used for perfect factors
+	if(math.abs(cycle - key)  < Cycle_diff and table[cycle]['dsp'] < DSPL) then	 
 	 cycleL = cycle
 	 DSPL = table[cycle]['dsp']
 	 tupleL = table[cycle]['tuple']
@@ -69,10 +70,11 @@ function TimeMultiplex(pyramid, layerT, outfile)
 				if(table_layer[i][cycles] == nil) then			  
 				  table_layer[i][cycles] = tab		    		 
 	  			else
-				  --if(table_layer[i][cycles]['dsp'] > dsp) then
-					table_layer[i][cycles] = nil
-					table_layer[i][cycles] = tab
-				  --end				
+				  --if(table_layer[i][cycles]['dsp'] > dsp) then -- can also store all the pairs to compare
+					if(table_layer[i][cycles]['dsp'] > dsp) then					
+					  table_layer[i][cycles] = nil
+					  table_layer[i][cycles] = tab
+				  end				
 				end
 				table.insert(table_cycle[i], cycles)
 				table.insert(table_dsp[i], dsp)         			
@@ -103,15 +105,11 @@ for cycle, _ in pairs(table_layer[1]) do
    cycle_layer[1] = cycle
    dsp_layer[1] = dsp
    tuple_layer[1] = tuple 
-   local ref_tuple = tuple
    for i = 2, N do
-	 local cycleL, DSPL, tupleL, flag = search_options(table_layer[i], cycle, ref_tuple)
+	 local cycleL, DSPL, tupleL, flag = search_options(table_layer[i], cycle)
 	 if(flag == false or dsp_t + DSPL > DSP_LIMIT) then
 		break
 	 end
-	--print(i)
-	--print(ref_tuple)    
-    ref_tuple = tupleL
 	dsp_t = dsp_t + DSPL		
 	cycle_layer[i] = cycleL
 	dsp_layer[i] = DSPL

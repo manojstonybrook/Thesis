@@ -1272,8 +1272,8 @@ init()
 if(multicone_stats == 1) then
 	local map = cone_position(inputNet, count)
 	print(map)
-	map = nil
-	map = {20, 0}
+	--map = nil
+	--map = {20, 0}
 	local res = {}
 	local cases = {}
 	local total_solutions = back_track(inputNet, map, res, 1, cases, count)
@@ -1357,7 +1357,7 @@ if(multicone_stats == 1) then
     
     if(opt.singlePyramid) then		    
 		
-       local single_cone = {20, 0}
+       local single_cone = {16, 0}
        outSinglePyramid:write(string.format("Input Network\n\n\n"))
 	   outSinglePyramid:write(string.format("%s\n", tostring(inputNet)))
 	   FPGAPrintParameters(inputNet, single_cone, outSinglePyramid)
